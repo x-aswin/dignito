@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'views/splash_screen.dart';
 import 'views/login.dart';
 import 'package:get/get.dart';
 
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: LoginView(),
+      home: SplashView(),
     );
   }
 }
