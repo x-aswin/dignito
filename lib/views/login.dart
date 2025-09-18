@@ -123,7 +123,7 @@ class LoginView extends StatelessWidget {
                           loginCtrl.errorMsg,
                           style: const TextStyle(
                             color: Colors.red,
-                            fontSize: 14,
+                            fontSize: 15,
                           ),
                           textAlign: TextAlign.center,
                         );
@@ -145,7 +145,7 @@ class LoginView extends StatelessWidget {
                   const SizedBox(height: 20), // Static height instead of based on constraints
 
                   const Text(
-                    'Powered by dist',
+                    'Powered by Aswin S',
                     style: TextStyle(color: Colors.white),
                   ),
                 ],
