@@ -17,6 +17,11 @@ class LoginView extends StatelessWidget {
       body: Container(
         height: MediaQuery.of(context).size.height, // Make the container full height
         decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/splash_back.png'),
+            colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
+            fit: BoxFit.cover,
+          ),
           gradient: RadialGradient(
             colors: [
               CustomColors.regText,
@@ -37,7 +42,7 @@ class LoginView extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 20.0),
                     child: Image.asset(
-                      'assets/logo.png',
+                      'assets/logonotext.png',
                       height: 200,
                       fit: BoxFit.contain,
                     ),
@@ -49,7 +54,7 @@ class LoginView extends StatelessWidget {
                   InputField(
                     labelText: 'Username',
                     icon: Icons.person,
-                    initialValue: '',
+                    initialValue: 'enter username',
                     onPressedCallback: loginCtrl.clearErrorMsg,
                     readOnly: false,
                     controller: loginCtrl.usernameCtrl,
@@ -61,7 +66,7 @@ class LoginView extends StatelessWidget {
                   InputField(
                     labelText: 'Password',
                     icon: Icons.lock,
-                    initialValue: '',
+                    initialValue: 'enter password',
                     onPressedCallback: loginCtrl.clearErrorMsg,
                     readOnly: false,
                     controller: loginCtrl.passwordCtrl,
