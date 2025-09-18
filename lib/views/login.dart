@@ -145,7 +145,7 @@ class LoginView extends StatelessWidget {
                   const SizedBox(height: 20), // Static height instead of based on constraints
 
                   const Text(
-                    'Powered by Aswin S',
+                    '',
                     style: TextStyle(color: Colors.white),
                   ),
                 ],
