@@ -90,12 +90,19 @@ flutter_native_splash:
   color: "#271C22"
   # The image that will appear on the splash screen.
   image: "assets/Untitled-2.png"
+  
+  # The branding image
+  branding: "assets/branding_splash.png"
+  
+  # Set the position of the branding image.
+  branding_mode: bottom
 
   # Keep the native splash screen on-screen until your app is ready.
   # This avoids the "white screen" flash.
   android_12:
     image: "assets/Untitled-2.png"
     color: "#271C22"
+    branding: "assets/branding_splash.png"
   # Optional: for fullscreen]
   fullscreen: true
 
