@@ -42,7 +42,7 @@ class LoginView extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 20.0),
                     child: Image.asset(
-                      'assets/logonotext.png',
+                      'assets/logo.png',
                       height: 200,
                       fit: BoxFit.contain,
                     ),
