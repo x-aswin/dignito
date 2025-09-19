@@ -84,7 +84,7 @@ class LoginView extends StatelessWidget {
         loginCtrl.selectedRoleIndex.value == 1
       ],
       borderRadius: BorderRadius.circular(10),
-      fillColor: CustomColors.regText.withOpacity(0.8),
+      fillColor: const Color.fromARGB(255, 104, 16, 28).withOpacity(0.8),
       selectedColor: Colors.white,
       color: Colors.white70,
       borderColor: Colors.white,
@@ -144,7 +144,7 @@ class LoginView extends StatelessWidget {
                     () {
                       loginCtrl.validateInputs(); // Pass role to the controller
                     },
-                    CustomColors.regText,
+                    const Color.fromARGB(255, 104, 16, 28),
                   ),
 
                   const SizedBox(height: 20), // Static height instead of based on constraints
