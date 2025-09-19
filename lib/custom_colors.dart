@@ -10,11 +10,11 @@ class CustomColors {
   static const textFieldFocusBorderColor = Color.fromARGB(255, 189, 189, 189);
   static const whiteCardColor = Colors.white;
   static const redCardColor = Colors.red;
-  static const DigPink= Color(0xFFd02adb);
+  static const DigPink= Color.fromARGB(255, 219, 42, 42);
   static const DigBlack= Color(0xFF271C22);
   static const DigYellow= Color(0xFFcdb608);
   static const DigTeal= Color(0xFF008080);
-  static const regText= Color(0xFF6A0DAD);
+  static const regText= Color.fromARGB(255, 173, 13, 66);
   
   
 }
