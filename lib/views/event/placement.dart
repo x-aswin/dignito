@@ -24,8 +24,23 @@ class Placement extends StatelessWidget {
     child:  Scaffold(
       resizeToAvoidBottomInset: true,
       body: Container(
-        height: MediaQuery.of(context).size.height, // Make the container full height
-        color: CustomColors.DigBlack, // Set a solid color background
+        height: MediaQuery.of(context).size.height,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/splash_back.png'),
+              colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
+              fit: BoxFit.cover,
+            ),
+            gradient: RadialGradient(
+              colors: [
+                CustomColors.regText,
+                Color(0xFF271C22),
+              ],
+              center: Alignment.topCenter,
+              radius: 0.8,
+              stops: [0.0, 1.0],
+            ),
+          ),
         child: SafeArea(
           child: Center(
             child: SingleChildScrollView( // Wrap the Column with SingleChildScrollView
@@ -34,7 +49,7 @@ class Placement extends StatelessWidget {
                 children: [
                   // Card for First Prize
                   Card(
-                    color: CustomColors.DigBlack, // Light pink color for the card
+                    color: CustomColors.DigPink.withOpacity(0.3), // Light pink color for the card
                     elevation: 8, // Adds shadow to the card
                     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20), // Margin around the card
                     child: Padding(
@@ -79,7 +94,7 @@ class Placement extends StatelessWidget {
 
                   // Card for Second Prize
                   Card(
-                    color: CustomColors.DigBlack, // Light pink color for the card
+                    color: CustomColors.DigPink.withOpacity(0.3), // Light pink color for the card
                     elevation: 8, // Adds shadow to the card
                     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20), // Margin around the card
                     child: Padding(

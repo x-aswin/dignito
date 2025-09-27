@@ -23,7 +23,7 @@ class placement_field extends StatelessWidget {
       decoration: InputDecoration(
         labelText: labelText,
         labelStyle: const TextStyle(color: Colors.white), // White label text
-        fillColor: CustomColors.DigBlack, // Black background
+        fillColor: CustomColors.regText.withOpacity(0.3), // Black background
         filled: true,
         prefixIcon: Icon(icon, color: Colors.white),
         border: OutlineInputBorder(

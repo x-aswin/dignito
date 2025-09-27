@@ -28,8 +28,25 @@ class EventDetails extends StatelessWidget {
         return false;
       },
       child: Scaffold(
-        backgroundColor: CustomColors.DigBlack,
-        body: SafeArea(
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/splash_back.png'),
+              colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
+              fit: BoxFit.cover,
+            ),
+            gradient: RadialGradient(
+              colors: [
+                CustomColors.regText,
+                Color(0xFF271C22),
+              ],
+              center: Alignment.topCenter,
+              radius: 0.8,
+              stops: [0.0, 1.0],
+            ),
+          ),
+        child: SafeArea(
           child: LayoutBuilder(
             builder: (context, constraints) {
               return SingleChildScrollView(
@@ -41,7 +58,7 @@ class EventDetails extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 16.0),
                         child: Image.asset(
-                          'assets/logo.png', // Replace with actual path
+                          'assets/dignito_logo.png', // Replace with actual path
                           height: 200,
                           fit: BoxFit.contain,
                         ),
@@ -77,9 +94,10 @@ class EventDetails extends StatelessWidget {
                         initialValue: participantdetails.paystatus,
                       ),
                       SizedBox(height: constraints.maxHeight * 0.03),
+
                       // Chest Number
                       if(participantdetails.paystatus == 'Paid') ...[
-                        
+                      
                       ChestField(
                         icon: Icons.confirmation_number,
                         fixedString: participantdetails.chestcode,
@@ -147,6 +165,7 @@ class EventDetails extends StatelessWidget {
               );
             },
           ),
+        ),
         ),
       ),
     );

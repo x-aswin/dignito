@@ -436,97 +436,84 @@ class HttpServices {
 }
 
 static Future<bool> issueIdCard() async {
-
   bool retVal = false;
-  String? Candid = await LocalStorage.getValue('CandId');
-  String? StaffId = await LocalStorage.getValue('staff_id');
-  String? category = await LocalStorage.getValue('category');
-  String? eventid = await LocalStorage.getValue('eventid');
+
+  // Manually set sample values instead of fetching from server
+  String? Candid = await LocalStorage.getValue('CandId') ?? "CAND123";
+  String? StaffId = await LocalStorage.getValue('staff_id') ?? "STAFF001";
+  String? category = await LocalStorage.getValue('category') ?? "CategoryA";
+  String? eventid = await LocalStorage.getValue('eventid') ?? "EVENT2025";
+
   Get.log(eventid.toString());
   Get.log("issuing ID");
+
+  // Keep the credentials structure same
   final credentials = {
-  'cand_id': Candid,
-  'staff_id':StaffId,
-  'category': category,
-  'eventid': eventid
+    'cand_id': Candid,
+    'staff_id': StaffId,
+    'category': category,
+    'eventid': eventid
   };
 
-  final headers = {
-    'Content-Type': 'application/json',
-  };
   Get.log(credentials.toString());
-  final body = json.encode(credentials);
 
-  final response = await http.post(
-    Uri.parse('https://dicoman.dist.ac.in/api/update'),
-    headers: headers,
-    body: body,
-  );
-  Get.log(response.statusCode.toString());
-  if(response.statusCode == 200)
-  {
-    print("updated");
-    Get.log("Response: ${response.toString()}");
-    retVal = true; 
-  }
+  // Simulate successful response manually
+  await Future.delayed(const Duration(seconds: 1)); // Simulate network delay
+  Get.log("Response Status: 200");
+  Get.log("Response: {status: 1, message: 'ID card issued successfully'}");
+
+  retVal = true; // Set manual success
+
   return retVal;
 }
 
 
+
 static Future<Participantdetails?> EventId() async {
   try {
-    // Retrieve values from local storage
-    String? Candid = await LocalStorage.getValue('CandId');
-    String? StaffId = await LocalStorage.getValue('staff_id');
-    String? category = await LocalStorage.getValue('category');
-    String? eventid = await LocalStorage.getValue('event_id');
+    // Retrieve values from local storage or use sample defaults
+    String? Candid = await LocalStorage.getValue('CandId') ?? "CAND123";
+    String? StaffId = await LocalStorage.getValue('staff_id') ?? "STAFF001";
+    String? category = await LocalStorage.getValue('category') ?? "CategoryA";
+    String? eventid = await LocalStorage.getValue('event_id') ?? "EVENT2025";
 
-    // Ensure all required values are present
-    if ([Candid, StaffId, category, eventid].contains(null)) {
-      Get.log('Error: One or more local storage values are null.');
-      return null;
-    }
-
-    // Prepare request body and headers
+    // Keep the credentials object same
     final credentials = {
       'cand_id': Candid,
       'staff_id': StaffId,
       'category': category,
       'eventid': eventid,
     };
+    Get.log('Request Body: ${json.encode(credentials)}');
 
-    final headers = {'Content-Type': 'application/json'};
-    final body = json.encode(credentials);
+    // Simulate network delay
+    await Future.delayed(const Duration(seconds: 1));
 
-    Get.log('Request Body: $body'); // Log request
+    // Log a manual response
+    Get.log("Response Status: 200");
+    Get.log("Response Body: {"
+        "'cand_id': '$Candid', "
+        "'staff_id': '$StaffId', "
+        "'category': '$category', "
+        "'eventid': '$eventid', "
+        "'chestcode': 'CHEST001', "
+        "'chestnumber': '10', "
+        "'cheststatus': 'not assigned',"
+        "}");
 
-    // Send POST request
-    final response = await http.post(
-      Uri.parse('https://dicoman.dist.ac.in/api/candidate'),
-      headers: headers,
-      body: body,
+    // Return manually created Participantdetails
+    Participantdetails participantDetails = Participantdetails(
+      iname: "depaul Institution",
+      cname: "sooraj s",
+      events: "nache",
+      paystatus: "Paid",
+      status: 1,
+      chestcode: "CHEST001",
+      chestnumber: "10",
+      cheststatus: 2,
     );
 
-    // Log response details
-    Get.log("Response Status: ${response.statusCode}");
-    Get.log("Response Body: ${response.body}");
-
-    if (response.statusCode == 200) {
-      final decodedResponse = json.decode(response.body);
-
-      // Parse the response into Participantdetails model
-      try {
-        Participantdetails participantDetails = 
-            Participantdetails.fromJson(decodedResponse);
-        return participantDetails;
-      } catch (e) {
-        Get.log('Error parsing Participantdetails: $e');
-        return null;
-      }
-    } else {
-      Get.log('Error: Invalid response with status ${response.statusCode}');
-      return null;
-    }
+    return participantDetails;
   } catch (e) {
     Get.log('Error fetching EventId: $e');
     return null;
@@ -538,47 +525,46 @@ static Future<Participantdetails?> EventId() async {
 
 
 
+
 static Future<bool> issueChestNumber(Participantdetails partdet) async {
   bool retVal = false;
-    String? Candid = await LocalStorage.getValue('CandId');
-    String? StaffId = await LocalStorage.getValue('staff_id');
-    String? category = await LocalStorage.getValue('category');
-    String? eventid = await LocalStorage.getValue('event_id');
+
+  // Retrieve values from local storage or use sample defaults
+  String? Candid = await LocalStorage.getValue('CandId') ?? "CAND123";
+  String? StaffId = await LocalStorage.getValue('staff_id') ?? "STAFF001";
+  String? category = await LocalStorage.getValue('category') ?? "CategoryA";
+  String? eventid = await LocalStorage.getValue('event_id') ?? "EVENT2025";
+
+  // Prepare credentials object (structure remains the same)
   final credentials = {
-  'cand_id': Candid,
-  'staff_id': StaffId,
-  'category': category,
-  'eventid': eventid,
-  'chest_code': partdet.chestcode,
-  'chest_no': partdet.chestnumber,
-  'chest_status': partdet.cheststatus,
+    'cand_id': Candid,
+    'staff_id': StaffId,
+    'category': category,
+    'eventid': eventid,
+    'chest_code': partdet.chestcode,
+    'chest_no': partdet.chestnumber,
+    'chest_status': partdet.cheststatus,
   };
 
   Get.log(credentials.toString());
 
-  final headers = {
-    'Content-Type': 'application/json',
-  };
-  
-  final body = json.encode(credentials);
+  // Simulate network delay
+  await Future.delayed(const Duration(seconds: 1));
 
-  final response = await http.post(
-    Uri.parse('https://dicoman.dist.ac.in/api/update'), 
-    headers: headers,
-    body: body,
-  );
-  print(response.body);
-  final decoderesponse = jsonDecode(response.body);
-  if(response.statusCode == 200)
-  {
-    print("updated");
-    Get.log("Response: ${response.body.toString()}");
-    retVal = true;
-    Get.log(decoderesponse['message']);
-    Get.snackbar("Successful", decoderesponse['message'], colorText: Colors.white); 
-  }
+  // Simulate server response
+  final decoderesponse = {
+    'message': "Chest number ${partdet.chestnumber} assigned successfully"
+  };
+
+  Get.log("Response: $decoderesponse");
+  retVal = true;
+
+  // Show snackbar with simulated message
+  Get.snackbar("Successful", decoderesponse['message']!, colorText: Colors.white);
+
   return retVal;
 }
+
 
 static Future<dynamic> getplacementDetails(String chestno) async {
   bool retVal = false;

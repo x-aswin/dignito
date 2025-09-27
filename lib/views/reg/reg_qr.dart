@@ -18,16 +18,16 @@ class Reg_scanqr extends StatefulWidget {
 class _Reg_scanqrState extends State<Reg_scanqr> {
   final Regcontroller qrctrl = Get.put(Regcontroller());
   final AuthController authctrl = Get.put(AuthController());
-  final FocusNode _participantFocus = FocusNode();
 
   @override
   void dispose() {
-    _participantFocus.dispose();
+    qrctrl.qrViewController?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    // Get current keyboard inset
     final double keyboardInset = MediaQuery.of(context).viewInsets.bottom;
 
     return WillPopScope(
@@ -36,17 +36,16 @@ class _Reg_scanqrState extends State<Reg_scanqr> {
         return false;
       },
       child: Scaffold(
-        resizeToAvoidBottomInset: false, // background fixed
+        resizeToAvoidBottomInset: false, // Keep background fixed
         body: Stack(
           children: [
-            // Fixed background
+            // Fixed background image
             Container(
-              height: MediaQuery.of(context).size.height,
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/splash_back.png'),
-                  colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
                   fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
                 ),
                 gradient: RadialGradient(
                   colors: [CustomColors.regText, Color(0xFF271C22)],
@@ -56,67 +55,61 @@ class _Reg_scanqrState extends State<Reg_scanqr> {
                 ),
               ),
             ),
-            // Foreground content
-            Positioned.fill(
-              child: SafeArea(
-                child: AnimatedPadding(
-                  duration: const Duration(milliseconds: 250),
-                  curve: Curves.easeOut,
-                  padding: EdgeInsets.only(bottom: keyboardInset),
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
-                    padding: EdgeInsets.fromLTRB(
-                      16,
-                      0,
-                      16,
-                      keyboardInset > 0 ? keyboardInset + 24 : 48,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const SizedBox(height: 20),
-                        Image.asset(
-                          'assets/dignito_logo.png',
-                          height: 150,
-                          fit: BoxFit.contain,
+
+            // Foreground scrollable content
+            SafeArea(
+              child: AnimatedPadding(
+                duration: const Duration(milliseconds: 250),
+                curve: Curves.easeOut,
+                padding: EdgeInsets.only(bottom: keyboardInset + 16),
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  reverse: true, // Ensures bottom stays visible when keyboard opens
+                  keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 20),
+                      Image.asset(
+                        'assets/dignito_logo.png',
+                        height: 150,
+                        fit: BoxFit.contain,
+                      ),
+                      const SizedBox(height: 20),
+                      Container(
+                        height: 300,
+                        width: 300,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: CustomColors.regText, width: 3),
+                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.transparent,
                         ),
-                        const SizedBox(height: 20),
-                        Container(
-                          height: 300,
-                          width: 300,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: CustomColors.regText, width: 3),
-                            borderRadius: BorderRadius.circular(8),
-                            color: Colors.transparent,
-                          ),
-                          clipBehavior: Clip.antiAlias,
-                          child: QRView(
-                            key: qrctrl.qrKey,
-                            onQRViewCreated: (QRViewController controller) {
-                              qrctrl.qrViewController = controller;
-                              controller.scannedDataStream.listen(qrctrl.onQRCodeScanned);
-                            },
-                          ),
+                        clipBehavior: Clip.antiAlias,
+                        child: QRView(
+                          key: qrctrl.qrKey,
+                          onQRViewCreated: (QRViewController controller) {
+                            qrctrl.qrViewController = controller;
+                            controller.scannedDataStream.listen(qrctrl.onQRCodeScanned);
+                          },
                         ),
-                        SizedBox(height: MediaQuery.of(context).size.height * Constants.sizedBoxHeight),
-                        // Participant ID input with focus node
-                        InputField(
-                          labelText: 'Participant ID',
-                          icon: Icons.person,
-                          initialValue: '',
-                          onPressedCallback: qrctrl.clearErrorMsg,
-                          controller: qrctrl.candid,
-                        ),
-                        SizedBox(height: MediaQuery.of(context).size.height * Constants.sizedBoxHeight),
-                        button(
-                          'Continue',
-                          qrctrl.getCandidateDetails,
-                          CustomColors.regText.withOpacity(0.8),
-                        ),
-                        const SizedBox(height: 20),
-                      ],
-                    ),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height * Constants.sizedBoxHeight),
+                      InputField(
+                        labelText: 'Participant ID',
+                        icon: Icons.person,
+                        initialValue: '',
+                        onPressedCallback: qrctrl.clearErrorMsg,
+                        controller: qrctrl.candid,
+                      ),
+                      SizedBox(height: 20),
+                      button(
+                        'Continue',
+                        qrctrl.getCandidateDetails,
+                        CustomColors.regText.withOpacity(0.8),
+                      ),
+                      const SizedBox(height: 20),
+                    ],
                   ),
                 ),
               ),
@@ -127,4 +120,3 @@ class _Reg_scanqrState extends State<Reg_scanqr> {
     );
   }
 }
-

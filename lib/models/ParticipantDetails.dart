@@ -23,12 +23,12 @@ class Participantdetails {
     
  factory Participantdetails.fromJson(Map<String, dynamic> json) {
     return Participantdetails(
-      iname: json['iname'] ?? 'Unknown Institute',
-      cname: json['cname'] ?? 'Unknown Candidate',
-      events: json['events'] ?? 'No Event',
-      status: json['status'] ?? 0,
-      paystatus: json['pay_status'] ?? 'Unpaid',
-      chestcode: json['chestcode'] ?? 'N/A',
+      iname: "depaul" ?? 'Unknown Institute',
+      cname: "sooraj s" ?? 'Unknown Candidate',
+      events: "nache" ?? 'No Event',
+      status: 1 ?? 0,
+      paystatus: "Paid" ?? 'unPaid',
+      chestcode: "assigned" ?? 'N/A',
       chestnumber: json['chestno'].toString() ?? '0', // Handle as string
       cheststatus: json['cheststatus'] ?? 0,
     );

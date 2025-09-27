@@ -25,11 +25,26 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CustomColors.DigBlack,
+      body: Stack(
+        children: [
+          // Fixed background
+          SizedBox.expand(
+            child: Image.asset(
+              'assets/splash_back.png',
+              fit: BoxFit.cover,
+            ),
+          ),
+          // Optional overlay to darken background
+          SizedBox.expand(
+            child: Container(color: Colors.black54),
+          ),
+          // Foreground content
+          _pages[_selectedIndex],
+        ],
+      ),
       bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: CustomColors.DigBlack,
-        color: CustomColors.regText
-         ,
+        backgroundColor: Colors.transparent, // Keep it transparent so background shows
+        color: CustomColors.regText,
         height: 50,
         animationDuration: const Duration(milliseconds: 300),
         onTap: (index) {
@@ -42,7 +57,7 @@ class _HomepageState extends State<Homepage> {
           Icon(Icons.emoji_events, color: Colors.white),
         ],
       ),
-      body: _pages[_selectedIndex],
+      backgroundColor: Colors.transparent, // Scaffold background transparent
     );
   }
 }
