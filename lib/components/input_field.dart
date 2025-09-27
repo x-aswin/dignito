@@ -50,7 +50,7 @@ class InputField extends StatelessWidget {
             borderSide: const BorderSide(color: CustomColors.textFieldFocusBorderColor, width: 2.0), // Thicker border when focused
           ),
           filled: true,
-          fillColor: const Color(0xFF271C22),
+          fillColor: CustomColors.regText.withOpacity(0.3), // Slightly transparent fill color
         ),
         obscureText: labelText.toLowerCase() == 'password', // Mask text if label is Password
         onTap: onPressedCallback,

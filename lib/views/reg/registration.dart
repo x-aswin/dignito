@@ -8,10 +8,10 @@ import 'package:get/get.dart';
 import '../../controllers/authController.dart';
 
 class Registration extends StatelessWidget {
-   final CandidateDetails candidateDetails;
+  final CandidateDetails candidateDetails;
 
   const Registration({super.key, required this.candidateDetails});
-  
+
   @override
   Widget build(BuildContext context) {
     final Regcontroller regctrl = Get.put(Regcontroller());
@@ -23,100 +23,116 @@ class Registration extends StatelessWidget {
         return false;
       },
       child: Scaffold(
-        backgroundColor: CustomColors.DigBlack,
+        backgroundColor: Colors.transparent, // Make Scaffold transparent to show background
         body: SafeArea(
           child: LayoutBuilder(
             builder: (context, constraints) {
-              return SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      // Add Image at the top
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16.0),
-                        child: Image.asset(
-                          'assets/logo.png', // Replace with your image path
-                          height: 200, // Set the height of the image
-                          fit: BoxFit.contain, // Adjust fit as necessary
-                        ),
-                      ),
-                      // Institution Name
-                      Textfield(
-                        labelText: 'Institution Name',
-                        icon: Icons.account_balance,
-                        initialValue: candidateDetails.iname, // Fill Institution Name
-                      ),
-                      SizedBox(height: constraints.maxHeight * 0.05),
-
-                      // Participant Name
-                      Textfield(
-                        labelText: 'Participant Name',
-                        icon: Icons.person,
-                        initialValue: candidateDetails.cname, // Fill Candidate Name
-                      ),
-                      SizedBox(height: constraints.maxHeight * 0.05),
-
-                      // ID Card Status
-                      Textfield(
-                        labelText: 'ID Card Status',
-                        initialValue: candidateDetails.status == 0 ? 'Issued' : 'Not Issued', // Handle Status
-                      ),
-                      SizedBox(height: constraints.maxHeight * 0.05),
-                      SizedBox(height: constraints.maxHeight * 0.05),
-                      SizedBox(height: constraints.maxHeight * 0.1),
-
-                      // Cancel Button
-                      SizedBox(
-                        width: double.infinity, // Make button full width
-                        child: ElevatedButton(
-                          onPressed: () {
-                            authctrl.cancelReg();
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: CustomColors.backgroundColor,
-                            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          child: const Text(
-                            'Cancel',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.black,
-                            ),
+              return Container(
+                height: constraints.maxHeight,
+                width: constraints.maxWidth,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/splash_back.png'), // Your background image
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                        Colors.black54, BlendMode.darken), // Optional dark overlay
+                  ),
+                ),
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      children: [
+                        // Add Image at the top
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 16.0),
+                          child: Image.asset(
+                            'assets/dignito_logo.png', // Replace with your image path
+                            height: 200, // Set the height of the image
+                            fit: BoxFit.contain, // Adjust fit as necessary
                           ),
                         ),
-                      ),
-                      SizedBox(height: constraints.maxHeight * 0.02), // Space between buttons
+                        // Institution Name
+                        Textfield(
+                          labelText: 'Institution Name',
+                          icon: Icons.account_balance,
+                          initialValue: candidateDetails.iname,
+                        ),
+                        SizedBox(height: constraints.maxHeight * 0.05),
 
-                      // Issue Button (only visible if candidateDetails.status is 0)
-                      if (candidateDetails.status == 1) ...[
+                        // Participant Name
+                        Textfield(
+                          labelText: 'Participant Name',
+                          icon: Icons.person,
+                          initialValue: candidateDetails.cname,
+                        ),
+                        SizedBox(height: constraints.maxHeight * 0.05),
+
+                        // ID Card Status
+                        Textfield(
+                          labelText: 'ID Card Status',
+                          initialValue: candidateDetails.status == 0
+                              ? 'Issued'
+                              : 'Not Issued',
+                        ),
+                        SizedBox(height: constraints.maxHeight * 0.05),
+                        SizedBox(height: constraints.maxHeight * 0.05),
+                        SizedBox(height: constraints.maxHeight * 0.1),
+
+                        // Cancel Button
                         SizedBox(
-                          width: double.infinity, // Make button full width
+                          width: double.infinity,
                           child: ElevatedButton(
                             onPressed: () {
-                              regctrl.issuseIdCard();
+                              authctrl.cancelReg();
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: CustomColors.regText,
-                              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                              backgroundColor: CustomColors.backgroundColor,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 50, vertical: 15),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             ),
                             child: const Text(
-                              'Issue',
+                              'Cancel',
                               style: TextStyle(
                                 fontSize: 18,
-                                color: Colors.white,
+                                color: Colors.black,
                               ),
                             ),
                           ),
                         ),
+                        SizedBox(height: constraints.maxHeight * 0.02),
+
+                        // Issue Button (only visible if candidateDetails.status is 0)
+                        if (candidateDetails.status == 1) ...[
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                regctrl.issuseIdCard();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: CustomColors.regText,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 50, vertical: 15),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              child: const Text(
+                                'Issue',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ],
-                    ],
+                    ),
                   ),
                 ),
               );
