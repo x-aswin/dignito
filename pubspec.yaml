@@ -94,7 +94,7 @@ flutter_native_splash:
   image: "assets/distlogo.png"
   
   # The branding image
-  #branding: "assets/digtext1.png"
+  branding: "assets/branding.png"
   
   # Set the position of the branding image.
   #branding_mode: bottom
@@ -104,7 +104,7 @@ flutter_native_splash:
   android_12:
     image: "assets/distlogo.png"
     color: "#271C22"
-    #branding: "assets/digtext1.png"
+    branding: "assets/branding.png"
   # Optional: for fullscreen
   fullscreen: true
 
