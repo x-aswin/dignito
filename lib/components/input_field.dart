@@ -33,7 +33,6 @@ class InputField extends StatelessWidget {
         controller: effectiveController,
         keyboardType: keyboardType,
         readOnly: readOnly,
-        cursorColor: CustomColors.regText,
         style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
           labelText: labelText,
