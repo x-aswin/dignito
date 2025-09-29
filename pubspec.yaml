@@ -78,7 +78,7 @@ flutter:
 
 flutter_launcher_icons:
       android: true
-      image_path: "assets/dignito_logo.png" # Path to your icon image
+      image_path: "assets/distlogo.jpg" # Path to your icon image
      #  ios: true Set to true if you also want to generate for iOS
       # Optional: Specify different icons for Android and iOS
       # image_path_android: "assets/icon/android_icon.png"
@@ -89,20 +89,20 @@ flutter_native_splash:
   # The color of the splash screen background. # Use CustomColors.DigBlack
   color: "#271C22"
   # The image that will appear on the splash screen.
-  image: "assets/logonotext.png"
+  image: "assets/dist_logo.png"
   
   # The branding image
-  branding: "assets/digtext1.png"
+  #branding: "assets/digtext1.png"
   
   # Set the position of the branding image.
-  branding_mode: bottom
+  #branding_mode: bottom
 
   # Keep the native splash screen on-screen until your app is ready.
   # This avoids the "white screen" flash.
   android_12:
-    image: "assets/logonotext.png"
+    image: "assets/dist_logo.png"
     color: "#271C22"
-    branding: "assets/digtext1.png"
+    #branding: "assets/digtext1.png"
   # Optional: for fullscreen]
   fullscreen: true
 
