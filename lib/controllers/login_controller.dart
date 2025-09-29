@@ -6,16 +6,20 @@ import 'package:dignito/errors.dart';
 import '../services/http_service.dart';
 import '../views/reg/reg_qr.dart';
 import '../services/local_storage_service.dart';
+import '../services/shared_pref_service.dart';
+import '../views/login.dart';
 //import '../views/hi.dart';
 //import 'package:dignito/services/local_storage_service.dart';
 
 class LoginController extends GetxController {
   String username = '';
   String password = '';
+  String key = '';
   String errorMsg = '';
   final String oldPasswd = 'oldpass';
   final usernameCtrl = TextEditingController();
   final passwordCtrl = TextEditingController();
+  final keyCtrl = TextEditingController();
     // Role options for the dropdown
   final List<String> roles = ['Student', 'Staff'];
   String selectedRole = 'Student';
@@ -55,6 +59,41 @@ class LoginController extends GetxController {
     update();
   }
 
+  void validateInputskey() async {
+    if (usernameCtrl.text.trim() == '' || passwordCtrl.text.trim() == '' || keyCtrl.text.trim() == '') {
+      errorMsg = ErrorMessages.emptyInputFieldsErrorkey;
+    } else {
+      
+      username = usernameCtrl.text.trim();
+      password = passwordCtrl.text.trim();
+      key=keyCtrl.text.trim();
+      bool loginStatus = await HttpServices.loginkey(username, password, key);
+      if(loginStatus == true)
+      {
+        clearErrorMsg();
+        String appKey = await SharedPrefHelper.getAppKey();
+        if(appKey != ''){
+          clearFields();
+          Get.to(() => LoginView());
+          update();
+        } else {
+          errorMsg = "Contact Admin";
+        }
+      } else {
+        errorMsg = 'Invalid Credentials or Key!';
+      }
+
+    }
+    update();
+  }
+
+
+  void clearFields() {
+    usernameCtrl.clear();
+    passwordCtrl.clear();
+  }
+
+
   void clearErrorMsg() {
     errorMsg = '';
     update();
@@ -69,3 +108,7 @@ class LoginController extends GetxController {
     super.onClose();
   }
 }
+
+
+
+

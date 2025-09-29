@@ -1,6 +1,8 @@
 class ErrorMessages {
   static const String emptyInputFieldsError =
       'Username and Password field cannot be empty';
+  static const String emptyInputFieldsErrorkey =
+      'Username, Password and Key field cannot be empty';
   static const String emptyFieldsPasswdReset =
       'Please enter both new and confirm passwords.';
   static const String invalidPasswordLengthError =

@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:dignito/components/button.dart';
 import 'package:dignito/components/input_field.dart';
@@ -12,6 +13,12 @@ class LoginWithKey extends StatelessWidget {
 
   // Add a controller for the key input
   final TextEditingController keyCtrl = TextEditingController();
+
+  @override
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +107,7 @@ class LoginWithKey extends StatelessWidget {
                         initialValue: '',
                         onPressedCallback: loginCtrl.clearErrorMsg,
                         readOnly: false,
-                        controller: keyCtrl,
+                        controller: loginCtrl.keyCtrl,
                       ),
 
                       const SizedBox(height: 20),
@@ -129,8 +136,8 @@ class LoginWithKey extends StatelessWidget {
                         'Enter',
                         () {
                           // You can add your validation logic here
-                          // For example: loginCtrl.loginWithKey(keyCtrl.text);
-                          loginCtrl.validateInputs(); 
+                          
+                          loginCtrl.validateInputskey(); 
                           
                         },
                         CustomColors.regText,

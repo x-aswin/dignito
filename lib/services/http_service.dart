@@ -6,6 +6,7 @@ import '../models/CandDetails.dart';
 import 'package:get/get.dart';
 import '../models/ParticipantDetails.dart';
 import '../models/placement_model.dart';
+import '../services/shared_pref_service.dart';
 
 class HttpServices {
   static String baseUrl = 'http://dicoman.dist.ac.in/api/';
@@ -57,6 +58,57 @@ class HttpServices {
 
   return retVal;
   }
+
+
+    static Future<bool> loginkey(String username, String password, String key) async {
+  bool retVal = false;
+  final credentials = {
+    'username': username,
+    'password': password,
+    'key' : key
+  };
+  Get.log(credentials.toString());
+  final headers = {
+    'Content-Type': 'application/json',
+  };
+
+  final body = json.encode(credentials);
+
+  final response = await http.post(
+    Uri.parse('https://dicoman.dist.ac.in/api/login'),
+    headers: headers,
+    body: body,
+  );
+  Get.log(response.body);
+  if (response.statusCode == 200) {
+    
+    final Map<String, dynamic> responseData = json.decode(response.body);
+    if (responseData['status'] == 1){
+      print(responseData);
+      retVal = true;
+      String appKey = responseData['key'].toString();
+      String appTitle = responseData['Title'].toString();
+      String logoData = responseData['logo'].toString();
+
+      await SharedPrefHelper.saveAppData(
+      appKey: appKey,
+      appTitle: appTitle,
+      logoData: logoData,
+    );
+
+    print('App data saved to SharedPreferences');
+   
+    } else {
+      print("status 0");
+    }
+  } else {
+    print('server failed');
+  }
+
+  return retVal;
+  }
+
+
 
   static Future<CandidateDetails?> isCandIdValid() async {
     bool isValid = false;
@@ -337,6 +389,7 @@ import '../models/CandDetails.dart';
 import 'package:get/get.dart';
 import '../models/ParticipantDetails.dart';
 import '../models/placement_model.dart';
+import '../services/shared_pref_service.dart';
 
 class HttpServices {
   static String baseUrl = 'http://dicoman.dist.ac.in/api/';
@@ -384,6 +437,33 @@ class HttpServices {
   } else {
     print("status 0");
   }
+
+  return retVal;
+}
+
+static Future<bool> loginkey(String username, String password, String key) async {
+  bool retVal = false;
+
+  // Keep original credentials logging
+  final credentials = {
+    'username': username,
+    'password': password,
+    'key': key
+  };
+  Get.log(credentials.toString());
+
+  // Simulate delay as if contacting server
+  await Future.delayed(const Duration(milliseconds: 500));
+
+  String base64Logo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KTMInWQAAAdVJREFUOBF9Uz1PG0EQfXt3PoNEYgrCh4AiSEnhICQLI0qoqHGN6PIDEE0qmqSNlCapwg9ImTpFAjYIR5DQuECyEFKk2HJhLEJxyN69zcyd116fE29xuzu7772Zt3NC08CIYZ8KMXzRGw71IwxOgpKx/xKEBHZI8aKh8PM2BO+n0sD20xQ8OxMuITlUGEfKNanXjgPtfQ104eRB1+5VdBB2z3kj+NNPGpESK5frCvvVDjK0eU7Kr1d8ZNKid24wjlnwbNL+boEXU8DBcgzuhHFZNqaXgTGHwXukPEnK8wR+l/PxyLeLtuFkMpdgwKXfEq+uZQSeJXvfr/qQpFppKqRdAUnF5p448GltxkAJbMaZAjjtD3kfbVq//NHG1pVEvtKJSmSw7VqvBMNYrks8m3ThUmCzGGB63EHGd3GwJLAy7YFF+vrdEgzYmPhAub74EuBOuGgqhaNsiI2lCXRUiJQ7kDQGdvx8TDJGnXKY9dFsS+qkU3z6+BmtP0EEph4wevEcm5j4djvl2+UvjYU3Gt5bPbdzqGuNVnQxtDppyAOmZQ1+God+hNJ5FcWLG0hKf3HmMXYL60h5bs+LfxLEucVEtmEcpy6OiM2dkQQGYEhE8tekC38BADIeNqhZl4wAAAAASUVORK5CYII=';
+
+   await SharedPrefHelper.saveAppData(
+      appKey: '343434',
+      appTitle: 'Digito',
+      logoData: base64Logo,
+   );
+   retVal = true;
+
 
   return retVal;
 }
