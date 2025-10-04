@@ -24,7 +24,7 @@ static Future <void> _checkAppKey() async {
   response.clear();
 }
   
-  static Future<bool> login(String username, String password, int usertype) async {
+  static Future<bool> login(String username, String password) async {
   bool retVal = false;
   await _checkAppKey();
   await _appdata();
@@ -104,6 +104,8 @@ static Future <void> _checkAppKey() async {
       String appTitle = responseData['fest_name'].toString();
       //String logoData = responseData['logo'].toString();
       String festid=responseData['fest_id'].toString();
+
+      //staffid is the userid
       String staffid = responseData['userid'].toString();
       String category = responseData['category'].toString();
       String eventid = responseData['eventid'].toString();
@@ -120,6 +122,17 @@ static Future <void> _checkAppKey() async {
     await _checkAppKey();
     await _appdata();
     print('App data saved to SharedPreferences');
+
+
+     // Print all extracted values
+      print('appKey: $appKey');
+      print('appTitle: $appTitle');
+      print('festid: $festid');
+      print('staffid: $staffid');
+      print('category: $category');
+      print('eventid: $eventid');
+      print('usertype: $usertype');
+      print('message: $message');
    
     } else {
       print("status 0");

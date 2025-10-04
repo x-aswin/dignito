@@ -83,7 +83,7 @@ class LoginView extends StatelessWidget {
                       readOnly: false,
                       controller: loginCtrl.passwordCtrl,
                     ),
-
+/*
                     const SizedBox(height: 20),
 
                     // Role Selection Toggle Buttons
@@ -117,6 +117,8 @@ class LoginView extends StatelessWidget {
                         ),
                       ),
                     ),
+
+                    */
 
                     const SizedBox(height: 20),
 
