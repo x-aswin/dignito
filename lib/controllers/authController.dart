@@ -31,7 +31,7 @@ class AuthController extends GetxController {
 
   void cancelReg() async {
     await LocalStorage.removeValue('Candid');
-    Get.off(() => const Reg_scanqr());
+    Get.off(() => const RegScanQR());
   }
   
   void cancelchest() async {

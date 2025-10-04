@@ -45,7 +45,7 @@ class LoginController extends GetxController {
         String? category = await LocalStorage.getValue('category');
         if( category == '0'){
           print("registration");
-          Get.to(() => const Reg_scanqr());
+          Get.to(() => const RegScanQR());
         } else if ( category == "2"){
           print("event"); 
           Get.to(() => const Homepage());

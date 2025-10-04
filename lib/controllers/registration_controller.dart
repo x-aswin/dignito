@@ -51,7 +51,7 @@ void getCandidateDetails() async {
   if (response == true) {
     Get.snackbar('Successful','ID issued.', colorText: Colors.white);
     await LocalStorage.removeValue('CandId');
-    Get.off(() => const Reg_scanqr());
+    Get.off(() => const RegScanQR());
   } else {
     Get.snackbar('error', 'try again', colorText: Colors.white);
     errorMsg.value = ErrorMessages.InvalidCandidateIdError;
