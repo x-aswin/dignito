@@ -43,7 +43,7 @@ class EventDetails extends StatelessWidget {
             ),
             gradient: RadialGradient(
               colors: [
-                CustomColors.regText,
+                CustomColors.regTextColor,
                 Color(0xFF271C22),
               ],
               center: Alignment.topCenter,
@@ -122,17 +122,17 @@ class EventDetails extends StatelessWidget {
                             authctrl.cancelchest();
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: CustomColors.backgroundColor,
+                            backgroundColor: CustomColors.buttonColor,
                             padding: const EdgeInsets.symmetric(vertical: 15),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
-                          child: const Text(
+                          child: Text(
                             'Cancel',
                             style: TextStyle(
                               fontSize: 18,
-                              color: Colors.black,
+                              color: CustomColors.buttonTextColor,
                             ),
                           ),
                         ),
@@ -148,17 +148,17 @@ class EventDetails extends StatelessWidget {
                             eventctrl.allocateNumber(participantdetails);
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: CustomColors.regText,
+                            backgroundColor: CustomColors.buttonColor,
                             padding: const EdgeInsets.symmetric(vertical: 15),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
-                          child: const Text(
+                          child: Text(
                             'Submit',
                             style: TextStyle(
                               fontSize: 18,
-                              color: Colors.black,
+                              color: CustomColors.buttonTextColor,
                             ),
                           ),
                         ),

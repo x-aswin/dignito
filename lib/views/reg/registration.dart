@@ -118,18 +118,18 @@ class Registration extends StatelessWidget {
                                 regctrl.issuseIdCard();
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: CustomColors.regText,
+                                backgroundColor: CustomColors.buttonColor,
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 50, vertical: 15),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                               ),
-                              child: const Text(
+                              child: Text(
                                 'Issue',
                                 style: TextStyle(
                                   fontSize: 18,
-                                  color: Colors.white,
+                                  color: CustomColors.buttonTextColor,
                                 ),
                               ),
                             ),

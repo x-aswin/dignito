@@ -33,8 +33,8 @@ class LoginView extends StatelessWidget {
               colorFilter: const ColorFilter.mode(
                   Colors.black54, BlendMode.darken),
             ),
-            gradient: const RadialGradient(
-              colors: [CustomColors.regText, Color(0xFF271C22)],
+            gradient:  RadialGradient(
+              colors: [CustomColors.regTextColor, Color(0xFF271C22)],
               center: Alignment.topCenter,
               radius: 0.8,
               stops: [0.0, 1.0],
@@ -111,7 +111,7 @@ class LoginView extends StatelessWidget {
       () {
         loginCtrl.validateInputs();
       },
-      CustomColors.regText,
+      CustomColors.buttonColor.withOpacity(0.8),
     );
   }
 }),

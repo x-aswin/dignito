@@ -1,3 +1,6 @@
+import 'package:dignito/custom_colors.dart';
+import 'package:dignito/main.dart';
+import 'package:dignito/services/local_storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:dignito/services/shared_pref_service.dart';
@@ -11,12 +14,21 @@ class StartUpPage extends StatefulWidget {
   @override
   _StartUpPageState createState() => _StartUpPageState();
 }
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await CustomColors.updateRegTextColor(); // wait for festId
+
+  runApp(MyApp());
+}
+
 
 class _StartUpPageState extends State<StartUpPage> {
   @override
   void initState() {
     super.initState();
     _checkAppKey();
+    main();
   }
 
  

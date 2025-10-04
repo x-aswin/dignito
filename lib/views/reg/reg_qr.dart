@@ -52,8 +52,8 @@ class _RegScanQRState extends State<RegScanQR> {
                   colorFilter: const ColorFilter.mode(
                       Colors.black54, BlendMode.darken),
                 ),
-                gradient: const RadialGradient(
-                  colors: [CustomColors.regText, Color(0xFF271C22)],
+                gradient:  RadialGradient(
+                  colors: [CustomColors.regTextColor, Color(0xFF271C22)],
                   center: Alignment.topCenter,
                   radius: 0.8,
                   stops: [0.0, 1.0],
@@ -87,7 +87,7 @@ class _RegScanQRState extends State<RegScanQR> {
                         height: 300,
                         width: 300,
                         decoration: BoxDecoration(
-                          border: Border.all(color: CustomColors.regText, width: 3),
+                          border: Border.all(color: CustomColors.regTextColor, width: 3),
                           borderRadius: BorderRadius.circular(8),
                           color: Colors.transparent,
                         ),
@@ -116,7 +116,7 @@ class _RegScanQRState extends State<RegScanQR> {
                       button(
                         'Continue',
                         qrctrl.getCandidateDetails,
-                        CustomColors.regText.withOpacity(0.8),
+                        CustomColors.buttonColor.withOpacity(0.8),
                       ),
                       const SizedBox(height: 20),
                     ],

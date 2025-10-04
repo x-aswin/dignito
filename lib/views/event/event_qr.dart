@@ -55,7 +55,7 @@ return WillPopScope(
                   height: 300.0,
                   width: 300.0,
                   decoration: BoxDecoration(
-                    border: Border.all(color: CustomColors.regText, width: 3.0),
+                    border: Border.all(color: CustomColors.regTextColor, width: 3.0),
                     borderRadius: BorderRadius.circular(8.0),
                     color: Colors.transparent,
                   ),
@@ -85,7 +85,7 @@ return WillPopScope(
                 button(
                   'Continue',
                   eventctrl.eventDetailsPage,
-                  CustomColors.regText,
+                  CustomColors.buttonColor,
                 ),
               ],
             ),

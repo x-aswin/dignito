@@ -38,7 +38,7 @@ class Placement extends StatelessWidget {
             ),
             gradient: RadialGradient(
               colors: [
-                CustomColors.regText,
+                CustomColors.regTextColor,
                 Color(0xFF271C22),
               ],
               center: Alignment.topCenter,
@@ -54,7 +54,7 @@ class Placement extends StatelessWidget {
                 children: [
                   // Card for First Prize
                   Card(
-                    color: CustomColors.DigPink.withOpacity(0.3), // Light pink color for the card
+                    color: CustomColors.digPink.withOpacity(0.3), // Light pink color for the card
                     elevation: 8, // Adds shadow to the card
                     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20), // Margin around the card
                     child: Padding(
@@ -76,8 +76,8 @@ class Placement extends StatelessWidget {
                                  eventctrl.fetchDetails(1);
                                 }, // Use verify icon
                                 style: ElevatedButton.styleFrom(
-                                  foregroundColor: Colors.white,
-                                  backgroundColor: CustomColors.regText,
+                                  foregroundColor: CustomColors.buttonTextColor,
+                                  backgroundColor: CustomColors.regTextColor,
                                   padding: EdgeInsets.all(10), // Icon color
                                   shape: CircleBorder(), // Circular shape
                                   minimumSize: Size(50, 50),
@@ -99,7 +99,7 @@ class Placement extends StatelessWidget {
 
                   // Card for Second Prize
                   Card(
-                    color: CustomColors.DigPink.withOpacity(0.3), // Light pink color for the card
+                    color: CustomColors.digPink.withOpacity(0.3), // Light pink color for the card
                     elevation: 8, // Adds shadow to the card
                     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20), // Margin around the card
                     child: Padding(
@@ -121,8 +121,8 @@ class Placement extends StatelessWidget {
                                  eventctrl.fetchDetails(2);
                                 }, // Use verify icon
                                 style: ElevatedButton.styleFrom(
-                                  foregroundColor: Colors.white,
-                                  backgroundColor: CustomColors.regText,
+                                  foregroundColor: CustomColors.buttonTextColor,
+                                  backgroundColor: CustomColors.regTextColor,
                                   padding: EdgeInsets.all(10), // Icon color
                                   shape: CircleBorder(), // Circular shape
                                   minimumSize: Size(50, 50),
@@ -151,7 +151,7 @@ class Placement extends StatelessWidget {
                     () {
                       eventctrl.postPlacements();
                     },
-                    CustomColors.regText,
+                    CustomColors.buttonColor,
                   ),
 
                   const SizedBox(height: 20), // Space below the button

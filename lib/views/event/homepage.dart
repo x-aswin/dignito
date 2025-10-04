@@ -48,7 +48,7 @@ class _HomepageState extends State<Homepage> {
       ),
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.transparent, // Keep it transparent so background shows
-        color: CustomColors.regText,
+        color: CustomColors.buttonColor,
         height: 50,
         animationDuration: const Duration(milliseconds: 300),
         onTap: (index) {
@@ -56,9 +56,9 @@ class _HomepageState extends State<Homepage> {
             _selectedIndex = index;
           });
         },
-        items: const [
-          Icon(Icons.qr_code_scanner_rounded, color: Colors.white),
-          Icon(Icons.emoji_events, color: Colors.white),
+        items: [
+          Icon(Icons.qr_code_scanner_rounded, color: CustomColors.buttonTextColor),
+          Icon(Icons.emoji_events, color: CustomColors.buttonTextColor),
         ],
       ),
       backgroundColor: Colors.transparent, // Scaffold background transparent
