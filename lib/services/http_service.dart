@@ -28,7 +28,7 @@ static Future <void> _checkAppKey() async {
   bool retVal = false;
   await _checkAppKey();
   await _appdata();
-  await LocalStorage.setValue('festid', appdata!['festid']);
+  //await LocalStorage.setValue('festid', appdata!['festid']);
   final credentials = {
     'username': username,
     'password': password,
@@ -111,7 +111,7 @@ static Future <void> _checkAppKey() async {
       String eventid = responseData['eventid'].toString();
       String usertype = responseData['usertype'].toString();
       String message = responseData['message'].toString();
-      await LocalStorage.setValue('festid', appdata!['festid']);
+      //await LocalStorage.setValue('festid', appdata['festid']);
       await SharedPrefHelper.saveAppData(
       appKey: appKey,
       appTitle: appTitle,

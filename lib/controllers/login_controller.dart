@@ -58,6 +58,7 @@ class LoginController extends GetxController {
   }
 
   void validateInputskey() async {
+    print("calling function on 1st login");
     if (usernameCtrl.text.trim() == '' || passwordCtrl.text.trim() == '' || keyCtrl.text.trim() == '') {
       errorMsg = ErrorMessages.emptyInputFieldsErrorkey;
     } else {

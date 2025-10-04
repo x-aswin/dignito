@@ -11,8 +11,12 @@ class LoginView extends StatelessWidget {
 
   final LoginController loginCtrl = Get.put(LoginController());
 
-  Future<Map<String, String>> _getFestAssets() async {
-    final festid = await LocalStorage.getValue('festid') ?? '1';
+  // Cached Future to avoid multiple async calls
+  final Future<Map<String, String>> _assetsFuture = _getFestAssetsStatic();
+
+  // Static method to fetch assets safely
+  static Future<Map<String, String>> _getFestAssetsStatic() async {
+    final festid = (await LocalStorage.getValue('festid'))?.toString() ?? '1';
 
     String background = 'assets/splash_back.png';
     String logo = 'assets/dignito_logo.png';
@@ -20,9 +24,6 @@ class LoginView extends StatelessWidget {
     if (festid == '5') {
       background = 'assets/daksh_background.png';
       logo = 'assets/daksshtext.png';
-    } else {
-      background = 'assets/splash_back.png';
-      logo = 'assets/dignito_logo.png';
     }
 
     return {'background': background, 'logo': logo};
@@ -38,7 +39,7 @@ class LoginView extends StatelessWidget {
         behavior: HitTestBehavior.translucent,
         onTap: () => FocusScope.of(context).unfocus(),
         child: FutureBuilder<Map<String, String>>(
-          future: _getFestAssets(),
+          future: _assetsFuture,
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const Center(child: CircularProgressIndicator());
@@ -50,7 +51,7 @@ class LoginView extends StatelessWidget {
               height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(assets['background']!),
+                  image: AssetImage(assets['background'] ?? 'assets/splash_back.png'),
                   fit: BoxFit.cover,
                   colorFilter:
                       const ColorFilter.mode(Colors.black54, BlendMode.darken),
@@ -67,15 +68,14 @@ class LoginView extends StatelessWidget {
                   child: AnimatedPadding(
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.easeOut,
-                    padding: EdgeInsets.only(
-                        bottom: keyboardInset > 0 ? 150 : 0), // smooth shift
+                    padding: EdgeInsets.only(bottom: keyboardInset), // dynamic shift
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 20.0),
                           child: Image.asset(
-                            assets['logo']!, // dynamic logo
+                            assets['logo'] ?? 'assets/dignito_logo.png',
                             height: 200,
                             fit: BoxFit.contain,
                           ),
@@ -102,7 +102,7 @@ class LoginView extends StatelessWidget {
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.8,
                           child: GetBuilder<LoginController>(
-                            builder: (controller) => Text(
+                            builder: (_) => Text(
                               loginCtrl.errorMsg,
                               style: const TextStyle(
                                   color: Colors.red, fontSize: 15),
