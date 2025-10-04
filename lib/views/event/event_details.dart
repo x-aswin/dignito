@@ -7,6 +7,7 @@ import '../../constants.dart';
 import '../../controllers/authController.dart';
 import '../../models/ParticipantDetails.dart';
 import '../../custom_colors.dart';
+import '../../services/assets_manager.dart'; 
 
 class EventDetails extends StatelessWidget {
   final Participantdetails participantdetails;
@@ -22,6 +23,10 @@ class EventDetails extends StatelessWidget {
     final String initialChestNumber = participantdetails.chestnumber.toString();
     eventctrl.allocatedNumberController.text = initialChestNumber;
 
+       // Get assets synchronously
+    final String background = FestAssets.getBackground();
+    final String logo = FestAssets.getLogo();
+
     return WillPopScope(
       onWillPop: () async {
         authctrl.verifyLogout();
@@ -30,9 +35,9 @@ class EventDetails extends StatelessWidget {
       child: Scaffold(
         body: Container(
           height: MediaQuery.of(context).size.height,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/splash_back.png'),
+              image: AssetImage(background),
               colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
               fit: BoxFit.cover,
             ),
@@ -58,7 +63,7 @@ class EventDetails extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 16.0),
                         child: Image.asset(
-                          'assets/dignito_logo.png', // Replace with actual path
+                          logo, // Replace with actual path
                           height: 200,
                           fit: BoxFit.contain,
                         ),
