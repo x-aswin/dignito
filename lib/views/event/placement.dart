@@ -7,12 +7,17 @@ import 'package:get/get.dart';
 import 'package:dignito/controllers/EventController.dart';
 import 'package:dignito/controllers/authController.dart';
 import 'package:dignito/custom_colors.dart';
+import '../../services/assets_manager.dart';
+
 
 class Placement extends StatelessWidget {
   Placement({super.key});
 
   final Eventcontroller eventctrl = Get.put(Eventcontroller());
   final AuthController authctrl = Get.put(AuthController());
+
+  final String background = FestAssets.getBackground();
+
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +30,9 @@ class Placement extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       body: Container(
         height: MediaQuery.of(context).size.height,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/splash_back.png'),
+              image: AssetImage(background),
               colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
               fit: BoxFit.cover,
             ),

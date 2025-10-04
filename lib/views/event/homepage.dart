@@ -5,6 +5,8 @@ import '../../custom_colors.dart';
 import 'event_qr.dart';
 import 'placement.dart';
 import '../../controllers/authController.dart';
+import '../../services/assets_manager.dart';
+
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -21,6 +23,8 @@ class _HomepageState extends State<Homepage> {
     const EventQr(), // Page for QR scanner icon
     Placement(), // Page for events icon
   ];
+  final String background = FestAssets.getBackground();
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +34,7 @@ class _HomepageState extends State<Homepage> {
           // Fixed background
           SizedBox.expand(
             child: Image.asset(
-              'assets/splash_back.png',
+              background,
               fit: BoxFit.cover,
             ),
           ),

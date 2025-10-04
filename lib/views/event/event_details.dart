@@ -59,11 +59,11 @@ class EventDetails extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
-                      // Add Logo/Image at the top (if required)
+                    
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 16.0),
                         child: Image.asset(
-                          logo, // Replace with actual path
+                          logo, 
                           height: 200,
                           fit: BoxFit.contain,
                         ),
