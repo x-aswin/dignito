@@ -38,7 +38,7 @@ class _StartUpPageState extends State<StartUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 49, 50, 52),
+      backgroundColor:  const Color.fromARGB(255, 49, 50, 52),
       body: Center(
         child: CircularProgressIndicator(), // Show a loading spinner while checking
       ),

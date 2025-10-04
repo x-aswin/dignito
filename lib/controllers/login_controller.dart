@@ -73,7 +73,7 @@ class LoginController extends GetxController {
         clearErrorMsg();
         String appKey = await SharedPrefHelper.getAppKey();
         if(appKey != ''){
-          clearFields();
+          //clearFields();
           Get.to(() => LoginView());
           update();
         } else {

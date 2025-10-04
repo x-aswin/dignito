@@ -9,15 +9,17 @@ import '../models/placement_model.dart';
 import '../services/shared_pref_service.dart';
 
 class HttpServices {
-  static String baseUrl = 'http://dicoman.dist.ac.in/api/';
-
+  static String? appkey;
+static Future <void> _checkAppKey() async {
+    appkey = await SharedPrefHelper.getAppKey();}
   static void _clearResponse(Map<String, dynamic> response) {
   // Clear the map to free up memory
   response.clear();
 }
-    
+  
   static Future<bool> login(String username, String password, int usertype) async {
   bool retVal = false;
+  await _checkAppKey();
   final credentials = {
     'username': username,
     'password': password,
@@ -26,12 +28,13 @@ class HttpServices {
   Get.log(credentials.toString());
   final headers = {
     'Content-Type': 'application/json',
+    'userkey' : 'bearer $appkey'
   };
 
   final body = json.encode(credentials);
 
   final response = await http.post(
-    Uri.parse('https://dicoman.dist.ac.in/api/login'),
+    Uri.parse('https://dicoman.dist.ac.in/api/Fest/Login'),
     headers: headers,
     body: body,
   );
@@ -75,7 +78,7 @@ class HttpServices {
   final body = json.encode(credentials);
 
   final response = await http.post(
-    Uri.parse('https://dicoman.dist.ac.in/api/login'),
+    Uri.parse('https://dicoman.dist.ac.in/api/Fest/FirstLogin'),
     headers: headers,
     body: body,
   );
@@ -88,12 +91,12 @@ class HttpServices {
       retVal = true;
       String appKey = responseData['key'].toString();
       String appTitle = responseData['Title'].toString();
-      String logoData = responseData['logo'].toString();
-
+      //String logoData = responseData['logo'].toString();
+      String festid=responseData['fest_id'].toString();
       await SharedPrefHelper.saveAppData(
       appKey: appKey,
       appTitle: appTitle,
-      logoData: logoData,
+      logoData: festid,
     );
 
     print('App data saved to SharedPreferences');
@@ -130,12 +133,13 @@ class HttpServices {
 
     final headers = {
       'Content-Type': 'application/json',
+      'userkey' : 'bearer $appkey',
     };
     
     final body = json.encode(credentials);
 
     final response = await http.post(
-      Uri.parse('https://dicoman.dist.ac.in/api/candidate'), //change uri
+      Uri.parse('https://dicoman.dist.ac.in/api/Fest/Candidate'), //change uri
       headers: headers,
       body: body,
     );
@@ -163,6 +167,7 @@ class HttpServices {
 static Future<bool> issueIdCard() async {
 
   bool retVal = false;
+  
   String? Candid = await LocalStorage.getValue('CandId');
   String? StaffId = await LocalStorage.getValue('staff_id');
   String? category = await LocalStorage.getValue('category');
@@ -178,12 +183,13 @@ static Future<bool> issueIdCard() async {
 
   final headers = {
     'Content-Type': 'application/json',
+    'userkey' : 'bearer $appkey',
   };
   Get.log(credentials.toString());
   final body = json.encode(credentials);
 
   final response = await http.post(
-    Uri.parse('https://dicoman.dist.ac.in/api/update'),
+    Uri.parse('https://dicoman.dist.ac.in/api/Fest/Update'),
     headers: headers,
     body: body,
   );
@@ -220,14 +226,14 @@ static Future<Participantdetails?> EventId() async {
       'eventid': eventid,
     };
 
-    final headers = {'Content-Type': 'application/json'};
+    final headers = {'Content-Type': 'application/json','userkey' : 'bearer $appkey',};
     final body = json.encode(credentials);
 
     Get.log('Request Body: $body'); // Log request
 
     // Send POST request
     final response = await http.post(
-      Uri.parse('https://dicoman.dist.ac.in/api/candidate'),
+      Uri.parse('https://dicoman.dist.ac.in/api/Fest/Candidate'),
       headers: headers,
       body: body,
     );
@@ -283,12 +289,13 @@ static Future<bool> issueChestNumber(Participantdetails partdet) async {
 
   final headers = {
     'Content-Type': 'application/json',
+    'userkey' : 'bearer $appkey',
   };
   
   final body = json.encode(credentials);
 
   final response = await http.post(
-    Uri.parse('https://dicoman.dist.ac.in/api/update'), 
+    Uri.parse('https://dicoman.dist.ac.in/api/Fest/Update'), 
     headers: headers,
     body: body,
   );
@@ -312,12 +319,13 @@ static Future<dynamic> getplacementDetails(String chestno) async {
   };
   final headers = {
     'Content-Type': 'application/json',
+    'userkey' : 'bearer $appkey',
   };
   
   final body = json.encode(credentials);
   Get.log(credentials.toString());
   final response = await http.post(
-    Uri.parse('https://dicoman.dist.ac.in/api/team'), 
+    Uri.parse(' https://dicoman.dist.ac.in/api/Fest/Team'), 
     headers: headers,
     body: body,
   );
@@ -352,12 +360,13 @@ static Future<bool> postplacement(String firstpo, String secondpo) async {
   };
   final headers = {
     'Content-Type': 'application/json',
+    'userkey' : 'bearer $appkey',
   };
   
   final body = json.encode(credentials);
   Get.log(credentials.toString());
   final response = await http.post(
-    Uri.parse('https://dicoman.dist.ac.in/api/prize'), 
+    Uri.parse(' https://dicoman.dist.ac.in/api/Fest/Prize'), 
     headers: headers,
     body: body,
   );
@@ -380,10 +389,13 @@ static Future<bool> postplacement(String firstpo, String secondpo) async {
 
 
 }
+<<<<<<< HEAD
 
 /*
+=======
+>>>>>>> 23afb889d726ebb2daa380c9c837be4e10ee2119
 
-import 'dart:convert';
+/*import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:dignito/services/local_storage_service.dart';
@@ -722,5 +734,9 @@ static Future<bool> postplacement(String firstpo, String secondpo) async {
 }
 
 
+<<<<<<< HEAD
 }
 */
+=======
+}*/
+>>>>>>> 23afb889d726ebb2daa380c9c837be4e10ee2119
