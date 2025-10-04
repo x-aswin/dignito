@@ -141,28 +141,53 @@ class EventDetails extends StatelessWidget {
 
                       // Verify Button
                       if (participantdetails.paystatus == 'Paid') ...[
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            eventctrl.allocateNumber(participantdetails);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: CustomColors.regText,
-                            padding: const EdgeInsets.symmetric(vertical: 15),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          child: const Text(
-                            'Submit',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ),
+                      Obx(() {
+  return SizedBox(
+    width: double.infinity,
+    child: ElevatedButton(
+      onPressed: eventctrl.isLoading.value
+          ? null // disable button while loading
+          : () => eventctrl.allocateNumber(participantdetails),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: CustomColors.regText,
+        padding: const EdgeInsets.symmetric(vertical: 15),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+      child: eventctrl.isLoading.value
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: 2,
+                  ),
+                ),
+                SizedBox(width: 10),
+                Text(
+                  'Allocating...',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            )
+          : const Text(
+              'Submit',
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.black,
+              ),
+            ),
+    ),
+  );
+})
+
                       ],
                     ],
                   ),

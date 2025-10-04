@@ -20,12 +20,15 @@ class Eventcontroller extends GetxController {
   final TextEditingController secondPrizememb = TextEditingController();
   final TextEditingController firstPrizememb = TextEditingController();
 
+  var isLoading = false.obs;
+
+
   var errorMsg = ''.obs;
   var firstPrizeDetails = ''.obs;  
   var secondPrizeDetails = ''.obs; 
   var errorMessage = ''.obs;
 
-   var isLoading = false.obs; 
+
 
 
   QRViewController? qrViewController;
@@ -66,16 +69,21 @@ class Eventcontroller extends GetxController {
 }
 
 
-  void allocateNumber(Participantdetails partdet) async{
-    partdet.chestnumber = allocatedNumberController.text.trim();
-    bool response = await HttpServices.issueChestNumber(partdet);
-    if(!response){
-      Get.snackbar('Unsuccessful', 'An error occured', colorText: Colors.white);
-    }// else {
-    //   Get.snackbar("Unsuccessful", 'An error occured');
-    // }
+  void allocateNumber(Participantdetails partdet) async {
+  isLoading.value = true; // start loading
+  partdet.chestnumber = allocatedNumberController.text.trim();
+
+  bool response = await HttpServices.issueChestNumber(partdet);
+  isLoading.value = false; // stop loading
+
+  if (!response) {
+    Get.snackbar('Unsuccessful', 'An error occurred', colorText: Colors.white);
+  } else {
+    Get.snackbar('Successful', 'Chest number allocated successfully', colorText: Colors.white);
     Get.off(() => const Homepage());
   }
+}
+
 
 
   void fetchDetails(int position) async {
