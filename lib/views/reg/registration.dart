@@ -111,29 +111,57 @@ class Registration extends StatelessWidget {
 
                         // Issue Button (only visible if candidateDetails.status == 1)
                         if (candidateDetails.status == 1) ...[
-                          SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                regctrl.issuseIdCard();
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: CustomColors.regText,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 50, vertical: 15),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                              child: const Text(
-                                'Issue',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
+                          Obx(() {
+  return SizedBox(
+    width: double.infinity,
+    child: ElevatedButton(
+      onPressed: regctrl.isIssuing.value
+          ? null
+          : () {
+              regctrl.issuseIdCard();
+            },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: CustomColors.regText,
+        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+      child: regctrl.isIssuing.value
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: 2,
+                  ),
+                ),
+                SizedBox(width: 10),
+                Text(
+                  'Issuing...',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            )
+          : const Text(
+              'Issue',
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.white,
+              ),
+            ),
+    ),
+  );
+}),
+
+
                         ],
                       ],
                     ),
