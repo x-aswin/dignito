@@ -24,6 +24,10 @@ class Eventcontroller extends GetxController {
   var firstPrizeDetails = ''.obs;  
   var secondPrizeDetails = ''.obs; 
   var errorMessage = ''.obs;
+
+   var isLoading = false.obs; 
+
+
   QRViewController? qrViewController;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
@@ -32,21 +36,35 @@ class Eventcontroller extends GetxController {
     participantid.text = scannedCode;
   }
 
-  void eventDetailsPage() async{
+  void eventDetailsPage() async {
+  if (participantid.text.trim().isEmpty) {
+    Get.snackbar('Error', 'Participant ID cannot be empty', colorText: Colors.white);
+    return;
+  }
 
+  isLoading.value = true; // show loading
+
+  try {
     String partid = participantid.text;
     await LocalStorage.setValue('CandId', partid);
     Participantdetails? participantDetails = await HttpServices.EventId();
-    if (participantDetails != null && participantDetails.cname.isNotEmpty){
-      if(participantDetails.cname == "Err"){
+
+    if (participantDetails != null && participantDetails.cname.isNotEmpty) {
+      if (participantDetails.cname == "Err") {
         Get.snackbar('Unsuccessful', 'Invalid ID', colorText: Colors.white);
       } else {
-        print('moving to displau page');
-        Get.off(() => EventDetails(participantdetails: participantDetails));}
+        Get.off(() => EventDetails(participantdetails: participantDetails));
+      }
     } else {
       Get.snackbar('Error', 'Please try again', colorText: Colors.white);
     }
+  } catch (e) {
+    Get.snackbar('Error', 'Something went wrong', colorText: Colors.white);
+  } finally {
+    isLoading.value = false; // hide loading
   }
+}
+
 
   void allocateNumber(Participantdetails partdet) async{
     partdet.chestnumber = allocatedNumberController.text.trim();
