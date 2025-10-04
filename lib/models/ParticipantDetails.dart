@@ -30,7 +30,6 @@ class Participantdetails {
       chestcode: "assigned" ?? 'N/A',
       chestnumber: json['chestno'].toString() ?? '0', // Handle as string
       cheststatus: json['cheststatus'] ?? 0,
-      memberstatus: json['member_status']?.toString() ?? '0',
     );
   }
 }

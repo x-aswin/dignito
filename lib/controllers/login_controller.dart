@@ -43,10 +43,10 @@ class LoginController extends GetxController {
       {
         clearErrorMsg();
         String? category = await LocalStorage.getValue('category');
-        if( category == '2'){
+        if( category == '0'){
           print("registration");
           Get.to(() => const Reg_scanqr());
-        } else if ( category == "4"){
+        } else if ( category == "2"){
           print("event"); 
           Get.to(() => const Homepage());
         } else {
