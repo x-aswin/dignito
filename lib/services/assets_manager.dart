@@ -14,23 +14,23 @@ class FestAssets {
 
   // Map of background images
   static const Map<String, String> _backgroundImages = {
-    '1': 'assets/images/splash_back.png',
-    '5': 'assets/images/daksh_background.png',
+    '1': 'assets/splash_back.png',
+    '5': 'assets/daksh_background.png',
   };
 
   // Map of logos
   static const Map<String, String> _logos = {
-    '1': 'assets/images/dignito_logo.png',
-    '5': 'assets/images/daksshtext.png',
+    '1': 'assets/dignito_logo.png',
+    '5': 'assets/daksshtext.png',
   };
 
   // Returns the correct background image based on current festid
   static String getBackground() {
-    return _backgroundImages[festid] ?? 'assets/images/default_bg.jpg';
+    return _backgroundImages[festid] ?? 'assets/default_bg.jpg';
   }
 
   // Returns the correct logo based on current festid
   static String getLogo() {
-    return _logos[festid] ?? 'assets/images/distlogo_login.png';
+    return _logos[festid] ?? 'assets/distlogo_login.png';
   }
 }
