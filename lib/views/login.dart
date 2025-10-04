@@ -13,17 +13,18 @@ class LoginView extends StatelessWidget {
 
   // Cached Future to avoid multiple async calls
   final Future<Map<String, String>> _assetsFuture = _getFestAssetsStatic();
-
+   
   // Static method to fetch assets safely
   static Future<Map<String, String>> _getFestAssetsStatic() async {
-    final festid = (await LocalStorage.getValue('festid'))?.toString() ?? '1';
-
+    String festid = (await LocalStorage.getValue('festid'))?.toString() ?? '1';
+    print("festid in login view: $festid");
     String background = 'assets/splash_back.png';
     String logo = 'assets/dignito_logo.png';
 
     if (festid == '5') {
       background = 'assets/daksh_background.png';
       logo = 'assets/daksshtext.png';
+      print("daksh assets loaded");
     }
 
     return {'background': background, 'logo': logo};

@@ -28,7 +28,7 @@ static Future <void> _checkAppKey() async {
   bool retVal = false;
   await _checkAppKey();
   await _appdata();
-  //await LocalStorage.setValue('festid', appdata!['festid']);
+  await LocalStorage.setimage('festid', appdata!['festid']);
   final credentials = {
     'username': username,
     'password': password,
