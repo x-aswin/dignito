@@ -13,6 +13,8 @@ import '../services/assets_manager.dart';
 //import 'package:dignito/services/local_storage_service.dart';
 
 class LoginController extends GetxController {
+  var isLoading = false.obs;
+
   String username = '';
   String password = '';
   String key = '';
@@ -25,68 +27,88 @@ class LoginController extends GetxController {
 
 
   void validateInputs() async {
-    if (usernameCtrl.text.trim() == '' || passwordCtrl.text.trim() == '') {
-      errorMsg = ErrorMessages.emptyInputFieldsError;
-    } else {
-      // if(selectedRole == 'Student'){
-      //   usertype = 1;
-      // } else {
-      //   usertype = 0;
-      // }
-      username = usernameCtrl.text.trim();
-      password = passwordCtrl.text.trim();
-      bool loginStatus = await HttpServices.login(username, password);
-      if(loginStatus == true)
-      {
-        clearErrorMsg();
-        String? category = await LocalStorage.getValue('category');
-        if( category == '2'){
-          print("registration");
-          Get.to(() => const RegScanQR());
-        } else if ( category == "2"){
-          Get.to(() => const RegScanQR());
-        } else if ( category == "4"){
-          print("event"); 
-          Get.to(() => const Homepage());
-        } else {
-          errorMsg = "Contact Admin";
-        }    
+  if (usernameCtrl.text.trim() == '' || passwordCtrl.text.trim() == '') {
+    errorMsg = ErrorMessages.emptyInputFieldsError;
+    update();
+    return;
+  }
+
+  isLoading.value = true;
+  update();
+
+  try {
+    username = usernameCtrl.text.trim();
+    password = passwordCtrl.text.trim();
+
+    bool loginStatus = await HttpServices.login(username, password);
+
+    if (loginStatus) {
+      clearErrorMsg();
+      String? category = await LocalStorage.getValue('category');
+
+      if (category == '2') {
+        Get.to(() => const RegScanQR());
+      } else if (category == "4") {
+        Get.to(() => const Homepage());
       } else {
+        errorMsg = "Contact Admin";
+      }
+    } else {
       errorMsg = 'Invalid Credentials!';
-      } 
     }
+  } catch (e) {
+    errorMsg = "Something went wrong!";
+  } finally {
+    isLoading.value = false;
     update();
   }
+}
+
 
   void validateInputskey() async {
-    print("calling function on 1st login");
-    if (usernameCtrl.text.trim() == '' || passwordCtrl.text.trim() == '' || keyCtrl.text.trim() == '') {
-      errorMsg = ErrorMessages.emptyInputFieldsErrorkey;
-    } else {
-      
-      username = usernameCtrl.text.trim();
-      password = passwordCtrl.text.trim();
-      key=keyCtrl.text.trim();
-      bool loginStatus = await HttpServices.loginkey(username, password, key);
-      if(loginStatus == true)
-      {
-        clearErrorMsg();
-        String appKey = await SharedPrefHelper.getAppKey();
-        await FestAssets.loadFestId();
-        if(appKey != ''){
-          //clearFields();
-          Get.to(() => LoginView());
-          update();
-        } else {
-          errorMsg = "Contact Admin";
-        }
-      } else {
-        errorMsg = 'Invalid Credentials or Key!';
-      }
+  print("calling function on 1st login");
 
+  if (usernameCtrl.text.trim() == '' ||
+      passwordCtrl.text.trim() == '' ||
+      keyCtrl.text.trim() == '') {
+    errorMsg = ErrorMessages.emptyInputFieldsErrorkey;
+    update();
+    return;
+  }
+
+  // Start loading
+  isLoading.value = true;
+  update();
+
+  try {
+    username = usernameCtrl.text.trim();
+    password = passwordCtrl.text.trim();
+    key = keyCtrl.text.trim();
+
+    bool loginStatus = await HttpServices.loginkey(username, password, key);
+
+    if (loginStatus == true) {
+      clearErrorMsg();
+      String appKey = await SharedPrefHelper.getAppKey();
+      await FestAssets.loadFestId();
+
+      if (appKey != '') {
+        // Move to next page
+        Get.to(() => LoginView());
+      } else {
+        errorMsg = "Contact Admin";
+      }
+    } else {
+      errorMsg = 'Invalid Credentials or Key!';
     }
+  } catch (e) {
+    errorMsg = "Something went wrong!";
+  } finally {
+    isLoading.value = false;
     update();
   }
+}
+
 
 
   void clearFields() {

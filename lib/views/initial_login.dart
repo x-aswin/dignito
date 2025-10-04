@@ -132,16 +132,29 @@ class LoginWithKey extends StatelessWidget {
                       const SizedBox(height: 20),
 
                       // Enter Button
-                      button(
-                        'Enter',
-                        () {
-                          // You can add your validation logic here
-                          
-                          loginCtrl.validateInputskey(); 
-                          
-                        },
-                        CustomColors.regText,
-                      ),
+                      Obx(() {
+  if (loginCtrl.isLoading.value) {
+    return Column(
+      children: const [
+        CircularProgressIndicator(color: Colors.white),
+        SizedBox(height: 10),
+        Text(
+          'Hold tight, we are on it...',
+          style: TextStyle(color: Colors.white),
+        ),
+      ],
+    );
+  } else {
+    return button(
+      'Enter',
+      () {
+        loginCtrl.validateInputskey();
+      },
+      CustomColors.regText,
+    );
+  }
+}),
+
                       const SizedBox(height: 20), 
                       const Spacer(), 
                     ],

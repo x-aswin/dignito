@@ -93,11 +93,29 @@ class LoginView extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      button(
-                        'Login',
-                        () => loginCtrl.validateInputs(),
-                        CustomColors.regText,
-                      ),
+                      Obx(() {
+  if (loginCtrl.isLoading.value) {
+    return Column(
+      children: const [
+        CircularProgressIndicator(color: Colors.white),
+        SizedBox(height: 10),
+        Text(
+          'Hold tight, we are on it...',
+          style: TextStyle(color: Colors.white),
+        ),
+      ],
+    );
+  } else {
+    return button(
+      'Login',
+      () {
+        loginCtrl.validateInputs();
+      },
+      CustomColors.regText,
+    );
+  }
+}),
+
                     ],
                   ),
                 ),
