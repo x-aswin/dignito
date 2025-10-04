@@ -3,9 +3,9 @@ import 'package:dignito/services/shared_pref_service.dart';
 
 class FestAssets {
   // Store the current festid in memory
-  static String festid = '1'; // default fallback
+  static String festid = '2'; // default fallback
 
-  // Call this once at app start to initialize
+  // app start to initialize
   static Future<void> loadFestId() async {
     final appData = await SharedPrefHelper.getAppData();
     festid = appData['festid'] ?? '1';

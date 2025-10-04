@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:dignito/services/shared_pref_service.dart';
 import 'package:dignito/views/login.dart'; 
 import 'package:dignito/views/initial_login.dart'; 
+import 'package:dignito/services/assets_manager.dart';
 
 class StartUpPage extends StatefulWidget {
   const StartUpPage({super.key});
@@ -21,6 +22,9 @@ class _StartUpPageState extends State<StartUpPage> {
  
   Future<void> _checkAppKey() async {
     String? appKey = await SharedPrefHelper.getAppKey();
+    
+    //loading assets
+    await FestAssets.loadFestId();
 
     if (appKey =='') {
       print("No appKey found, navigating to LoginWithKey");
