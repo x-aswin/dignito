@@ -21,16 +21,12 @@ class LoginController extends GetxController {
   final passwordCtrl = TextEditingController();
   final keyCtrl = TextEditingController();
     // Role options for the dropdown
-  final List<String> roles = ['Student', 'Staff'];
-  String selectedRole = 'Student';
-  final RxInt selectedRoleIndex = 0.obs;
 
 
   void validateInputs() async {
     if (usernameCtrl.text.trim() == '' || passwordCtrl.text.trim() == '') {
       errorMsg = ErrorMessages.emptyInputFieldsError;
     } else {
-      int usertype = selectedRoleIndex.value;
       // if(selectedRole == 'Student'){
       //   usertype = 1;
       // } else {
@@ -38,15 +34,15 @@ class LoginController extends GetxController {
       // }
       username = usernameCtrl.text.trim();
       password = passwordCtrl.text.trim();
-      bool loginStatus = await HttpServices.login(username, password, usertype);
+      bool loginStatus = await HttpServices.login(username, password);
       if(loginStatus == true)
       {
         clearErrorMsg();
         String? category = await LocalStorage.getValue('category');
-        if( category == '0'){
+        if( category == '2'){
           print("registration");
           Get.to(() => const Reg_scanqr());
-        } else if ( category == "2"){
+        } else if ( category == "4"){
           print("event"); 
           Get.to(() => const Homepage());
         } else {
