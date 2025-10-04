@@ -33,12 +33,13 @@ static Future <void> _checkAppKey() async {
     'username': username,
     'password': password,
     'usertype' : appdata!['usertype'],
-    'fest_id' : appdata!['festid']
+    'fest_id' : appdata!['festid'],
+    'api_key' : appkey
   };
   Get.log(credentials.toString());
   final headers = {
     'Content-Type': 'application/json',
-    'userkey' : 'bearer $appkey'
+    
   };
 
   final body = json.encode(credentials);
@@ -57,10 +58,12 @@ static Future <void> _checkAppKey() async {
       retVal = true;
       
       String staffid = responseData['user_id'].toString();
+      print(staffid);
       String category = responseData['category'].toString();
       String eventid = responseData['eventid'].toString();
       Get.log(eventid);
       await LocalStorage.setValue('staff_id', staffid);
+      print(staffid);
       await LocalStorage.setValue('category', category);
       await LocalStorage.setValue('event_id', eventid); 
     } else {
@@ -102,7 +105,7 @@ static Future <void> _checkAppKey() async {
       retVal = true;
       String appKey = responseData['api_key'].toString();
       String appTitle = responseData['fest_name'].toString();
-      //String logoData = responseData['logo'].toString();
+      String logoData = responseData['logo'].toString();
       String festid=responseData['fest_id'].toString();
 
       //staffid is the userid
@@ -111,7 +114,7 @@ static Future <void> _checkAppKey() async {
       String eventid = responseData['eventid'].toString();
       String usertype = responseData['usertype'].toString();
       String message = responseData['message'].toString();
-      //await LocalStorage.setValue('festid', appdata['festid']);
+      //await LocalStorage.setimage('festid', appdata!['festid']);
       await SharedPrefHelper.saveAppData(
       appKey: appKey,
       appTitle: appTitle,
@@ -160,15 +163,14 @@ static Future <void> _checkAppKey() async {
     'category': category,
     'eventid': event,
     'usertype' : appdata!['usertype'],
-    'fest_id' : appdata!['festid']
+    'fest_id' : appdata!['festid'],
+    'api_key' : appkey
     };
 
     Get.log(credentials.toString());
 
-
     final headers = {
       'Content-Type': 'application/json',
-      'userkey' : 'bearer $appkey',
     };
     
     final body = json.encode(credentials);
@@ -207,6 +209,7 @@ static Future<bool> issueIdCard() async {
   String? StaffId = await LocalStorage.getValue('staff_id');
   String? category = await LocalStorage.getValue('category');
   String? eventid = await LocalStorage.getValue('eventid');
+  
   Get.log(eventid.toString());
   Get.log("issuing ID");
   final credentials = {
@@ -215,12 +218,12 @@ static Future<bool> issueIdCard() async {
   'category': category,
   'eventid': eventid,
   'usertype' : appdata!['usertype'],
-  'fest_id' : appdata!['festid']
+  'fest_id' : appdata!['festid'],
+  'api_key' : appkey
   };
 
   final headers = {
     'Content-Type': 'application/json',
-    'userkey' : 'bearer $appkey',
   };
   Get.log(credentials.toString());
   final body = json.encode(credentials);
@@ -246,6 +249,7 @@ static Future<Participantdetails?> EventId() async {
     // Retrieve values from local storage
     String? Candid = await LocalStorage.getValue('CandId');
     String? StaffId = await LocalStorage.getValue('staff_id');
+    print(StaffId);
     String? category = await LocalStorage.getValue('category');
     String? eventid = await LocalStorage.getValue('event_id');
 
@@ -261,9 +265,12 @@ static Future<Participantdetails?> EventId() async {
       'user_id': StaffId,
       'category': category,
       'eventid': eventid,
+      'fest_id' : appdata!['festid'],
+      'usertype' : appdata!['usertype'],
+      'api_key' : appkey
     };
 
-    final headers = {'Content-Type': 'application/json','userkey' : 'bearer $appkey',};
+    final headers = {'Content-Type': 'application/json'};
     final body = json.encode(credentials);
 
     Get.log('Request Body: $body'); // Log request
@@ -320,13 +327,13 @@ static Future<bool> issueChestNumber(Participantdetails partdet) async {
   'chest_code': partdet.chestcode,
   'chest_no': partdet.chestnumber,
   'chest_status': partdet.cheststatus,
+  'api_key' : appkey
   };
 
   Get.log(credentials.toString());
 
   final headers = {
     'Content-Type': 'application/json',
-    'userkey' : 'bearer $appkey',
   };
   
   final body = json.encode(credentials);
@@ -355,11 +362,11 @@ static Future<dynamic> getplacementDetails(String chestno) async {
     'chestno' : chestno,
     'fest_id' : appdata!['festid'],
     'user_id' : await LocalStorage.getValue('staff_id'),
-    'usertype' : appdata!['usertype']
+    'usertype' : appdata!['usertype'],
+    'api_key' : appkey
   };
   final headers = {
     'Content-Type': 'application/json',
-    'userkey' : 'bearer $appkey',
   };
   
   final body = json.encode(credentials);
@@ -397,12 +404,12 @@ static Future<bool> postplacement(String firstpo, String secondpo) async {
     'event_id': eventid,
     'prize': {
       '1': firstpo,
-      '2': secondpo
+      '2': secondpo,
+      'api_key' : appkey
     }
   };
   final headers = {
     'Content-Type': 'application/json',
-    'userkey' : 'bearer $appkey',
   };
   
   final body = json.encode(credentials);

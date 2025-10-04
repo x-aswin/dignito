@@ -25,6 +25,7 @@ class Regcontroller extends GetxController {
 void getCandidateDetails() async {
   if(candid.text == ''){
     Get.snackbar("Error", "Empty field",
+    
     colorText: Colors.white);
   } else{
      await LocalStorage.setValue('CandId', candid.text);
@@ -33,10 +34,13 @@ void getCandidateDetails() async {
       if(candidateDetails.cname == "Err"){
         Get.snackbar("Unsuccessful", 'Invalid Id',
         colorText: Colors.white);
+        print("candidateDetails.cname");
       } else {
         Get.off(() => Registration(candidateDetails: candidateDetails));
+        print("Valid ID");
       }
   } else {
+    print("Invalid ID");
     errorMsg.value = ErrorMessages.InvalidCandidateIdError;
   }
   }

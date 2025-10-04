@@ -25,7 +25,7 @@ class _RegScanQRState extends State<RegScanQR> {
     qrctrl.qrViewController?.dispose();
     super.dispose();
   }
-
+  
   Future<Map<String, String>> _getFestAssets() async {
     final festid = await LocalStorage.getValue('festid') ?? '1';
 
