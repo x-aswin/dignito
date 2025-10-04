@@ -85,6 +85,47 @@ class Eventcontroller extends GetxController {
 }
 
 
+void fetchDetails(int position) async {
+  isLoading.value = true; // start loading
+  if (position == 1) {
+    final chestno = firstPrizeController.text.trim();
+    var response = await HttpServices.getplacementDetails(chestno);
+    if (response != false) {
+      firstPrizeinst.text = response.instname;
+      firstPrizememb.text = response.members;
+    } else {
+      Get.snackbar('Error', 'Details not found', colorText: Colors.white);
+    }
+  } else {
+    final chestno = secondPrizeController.text.trim();
+    var response = await HttpServices.getplacementDetails(chestno);
+    if (response != false) {
+      secondPrizeinst.text = response.instname;
+      secondPrizememb.text = response.members;
+    } else {
+      Get.snackbar('Error', 'Details not found', colorText: Colors.white);
+    }
+  }
+  isLoading.value = false; // stop loading
+}
+
+void postPlacements() async {
+  isLoading.value = true; // start loading
+  final firstposition = firstPrizeController.text.trim();
+  final secondposition = secondPrizeController.text.trim();
+  final Response = await HttpServices.postplacement(firstposition, secondposition);
+  isLoading.value = false; // stop loading
+
+  if (Response == true) {
+    Get.snackbar('Success', 'Placements posted', colorText: Colors.white);
+  } else {
+    Get.snackbar('Error', 'Failed to post placements', colorText: Colors.white);
+  }
+}
+
+
+/*
+old code for fetchDetails and postPlacements
 
   void fetchDetails(int position) async {
     if(position == 1){
@@ -113,6 +154,8 @@ class Eventcontroller extends GetxController {
    final secondposition = secondPrizeController.text.trim();
    final Response = await HttpServices.postplacement(firstposition,secondposition);
   }
+
+  */
 
   void clearErrorMsg() {
     errorMsg.value = '';
