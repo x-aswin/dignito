@@ -43,7 +43,7 @@ class EventDetails extends StatelessWidget {
             ),
             gradient: RadialGradient(
               colors: [
-                CustomColors.regTextColor,
+                CustomColors.regText,
                 Color(0xFF271C22),
               ],
               center: Alignment.topCenter,
@@ -122,17 +122,17 @@ class EventDetails extends StatelessWidget {
                             authctrl.cancelchest();
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: CustomColors.buttonColor,
+                            backgroundColor: CustomColors.backgroundColor,
                             padding: const EdgeInsets.symmetric(vertical: 15),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
-                          child: Text(
+                          child: const Text(
                             'Cancel',
                             style: TextStyle(
                               fontSize: 18,
-                              color: CustomColors.buttonTextColor,
+                              color: Colors.black,
                             ),
                           ),
                         ),
@@ -141,28 +141,31 @@ class EventDetails extends StatelessWidget {
 
                       // Verify Button
                       if (participantdetails.paystatus == 'Paid') ...[
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            eventctrl.allocateNumber(participantdetails);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: CustomColors.buttonColor,
-                            padding: const EdgeInsets.symmetric(vertical: 15),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          child: Text(
-                            'Submit',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: CustomColors.buttonTextColor,
-                            ),
-                          ),
-                        ),
-                      ),
+                      Obx(() {
+  return SizedBox(
+    width: double.infinity,
+    child: ElevatedButton(
+      onPressed: eventctrl.isLoading.value
+          ? null // disable button while loading
+          : () => eventctrl.allocateNumber(participantdetails),
+      style: ElevatedButton.styleFrom(
+         backgroundColor: CustomColors.buttonColor,
+        padding: const EdgeInsets.symmetric(vertical: 15),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+child: Text(
+              'Submit',
+              style: TextStyle(
+                fontSize: 18,
+                color: CustomColors.buttonTextColor,
+              ),
+            ),
+    ),
+  );
+})
+
                       ],
                     ],
                   ),

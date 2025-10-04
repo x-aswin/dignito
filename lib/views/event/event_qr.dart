@@ -35,7 +35,40 @@ return WillPopScope(
       ),
     ),
     child: SafeArea(
-      child: SingleChildScrollView(
+  child: Obx(() {
+     if (eventctrl.isLoading.value) {
+    return Container(
+      color: Colors.black45, // semi-transparent overlay
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Logo
+            Image.asset(
+              logo, // dynamic logo
+              height: 300,
+            ),
+            const SizedBox(height: 20),
+            // Spinner
+            const CircularProgressIndicator(
+              color: Colors.white,
+            ),
+            const SizedBox(height: 20),
+            // Loading message
+            const Text(
+              'Hold tight, we are fetching data...',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    );
+  }else {
+      return SingleChildScrollView(
         child: Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -46,7 +79,7 @@ return WillPopScope(
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20.0),
                   child: Image.asset(
-                    logo, // dynamic logo
+                    logo,
                     height: 150,
                   ),
                 ),
@@ -91,8 +124,11 @@ return WillPopScope(
             ),
           ),
         ),
-      ),
-    ),
+      );
+    }
+  }),
+),
+
   ),
 );
 

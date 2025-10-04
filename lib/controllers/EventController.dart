@@ -20,10 +20,17 @@ class Eventcontroller extends GetxController {
   final TextEditingController secondPrizememb = TextEditingController();
   final TextEditingController firstPrizememb = TextEditingController();
 
+  var isLoading = false.obs;
+
+
   var errorMsg = ''.obs;
   var firstPrizeDetails = ''.obs;  
   var secondPrizeDetails = ''.obs; 
   var errorMessage = ''.obs;
+
+
+
+
   QRViewController? qrViewController;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
@@ -32,33 +39,93 @@ class Eventcontroller extends GetxController {
     participantid.text = scannedCode;
   }
 
-  void eventDetailsPage() async{
+  void eventDetailsPage() async {
+  if (participantid.text.trim().isEmpty) {
+    Get.snackbar('Error', 'Participant ID cannot be empty', colorText: Colors.white);
+    return;
+  }
 
+  isLoading.value = true; // show loading
+
+  try {
     String partid = participantid.text;
     await LocalStorage.setValue('CandId', partid);
     Participantdetails? participantDetails = await HttpServices.EventId();
-    if (participantDetails != null && participantDetails.cname.isNotEmpty){
-      if(participantDetails.cname == "Err"){
+
+    if (participantDetails != null && participantDetails.cname.isNotEmpty) {
+      if (participantDetails.cname == "Err") {
         Get.snackbar('Unsuccessful', 'Invalid ID', colorText: Colors.white);
       } else {
-        print('moving to displau page');
-        Get.off(() => EventDetails(participantdetails: participantDetails));}
+        Get.off(() => EventDetails(participantdetails: participantDetails));
+      }
     } else {
       Get.snackbar('Error', 'Please try again', colorText: Colors.white);
     }
+  } catch (e) {
+    Get.snackbar('Error', 'Something went wrong', colorText: Colors.white);
+  } finally {
+    isLoading.value = false; // hide loading
   }
+}
 
-  void allocateNumber(Participantdetails partdet) async{
-    partdet.chestnumber = allocatedNumberController.text.trim();
-    bool response = await HttpServices.issueChestNumber(partdet);
-    if(!response){
-      Get.snackbar('Unsuccessful', 'An error occured', colorText: Colors.white);
-    }// else {
-    //   Get.snackbar("Unsuccessful", 'An error occured');
-    // }
+
+  void allocateNumber(Participantdetails partdet) async {
+  isLoading.value = true; // start loading
+  partdet.chestnumber = allocatedNumberController.text.trim();
+
+  bool response = await HttpServices.issueChestNumber(partdet);
+  isLoading.value = false; // stop loading
+
+  if (!response) {
+    Get.snackbar('Unsuccessful', 'An error occurred', colorText: Colors.white);
+  } else {
+    Get.snackbar('Successful', 'Chest number allocated successfully', colorText: Colors.white);
     Get.off(() => const Homepage());
   }
+}
 
+
+void fetchDetails(int position) async {
+  isLoading.value = true; // start loading
+  if (position == 1) {
+    final chestno = firstPrizeController.text.trim();
+    var response = await HttpServices.getplacementDetails(chestno);
+    if (response != false) {
+      firstPrizeinst.text = response.instname;
+      firstPrizememb.text = response.members;
+    } else {
+      Get.snackbar('Error', 'Details not found', colorText: Colors.white);
+    }
+  } else {
+    final chestno = secondPrizeController.text.trim();
+    var response = await HttpServices.getplacementDetails(chestno);
+    if (response != false) {
+      secondPrizeinst.text = response.instname;
+      secondPrizememb.text = response.members;
+    } else {
+      Get.snackbar('Error', 'Details not found', colorText: Colors.white);
+    }
+  }
+  isLoading.value = false; // stop loading
+}
+
+void postPlacements() async {
+  isLoading.value = true; // start loading
+  final firstposition = firstPrizeController.text.trim();
+  final secondposition = secondPrizeController.text.trim();
+  final Response = await HttpServices.postplacement(firstposition, secondposition);
+  isLoading.value = false; // stop loading
+
+  if (Response == true) {
+    Get.snackbar('Success', 'Placements posted', colorText: Colors.white);
+  } else {
+    Get.snackbar('Error', 'Failed to post placements', colorText: Colors.white);
+  }
+}
+
+
+/*
+old code for fetchDetails and postPlacements
 
   void fetchDetails(int position) async {
     if(position == 1){
@@ -87,6 +154,8 @@ class Eventcontroller extends GetxController {
    final secondposition = secondPrizeController.text.trim();
    final Response = await HttpServices.postplacement(firstposition,secondposition);
   }
+
+  */
 
   void clearErrorMsg() {
     errorMsg.value = '';
