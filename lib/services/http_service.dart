@@ -10,6 +10,13 @@ import '../services/shared_pref_service.dart';
 
 class HttpServices {
   static String? appkey;
+  static String? usertype;
+  static Map<String, String>? appdata;
+  static Future<void> _appdata() async {
+  appdata =await SharedPrefHelper.getAppData();
+}
+
+  
 static Future <void> _checkAppKey() async {
     appkey = await SharedPrefHelper.getAppKey();}
   static void _clearResponse(Map<String, dynamic> response) {
@@ -20,10 +27,12 @@ static Future <void> _checkAppKey() async {
   static Future<bool> login(String username, String password, int usertype) async {
   bool retVal = false;
   await _checkAppKey();
+  await _appdata();
   final credentials = {
     'username': username,
     'password': password,
-    'usertype' : usertype
+    'usertype' : appdata!['usertype'],
+    'fest_id' : appdata!['festid']
   };
   Get.log(credentials.toString());
   final headers = {
@@ -45,7 +54,8 @@ static Future <void> _checkAppKey() async {
     if (responseData['status'] == 1){
       print(responseData);
       retVal = true;
-      String staffid = responseData['staff_id'].toString();
+      
+      String staffid = responseData['user_id'].toString();
       String category = responseData['category'].toString();
       String eventid = responseData['eventid'].toString();
       Get.log(eventid);
@@ -68,7 +78,7 @@ static Future <void> _checkAppKey() async {
   final credentials = {
     'username': username,
     'password': password,
-    'key' : key
+    'userkey' : key
   };
   Get.log(credentials.toString());
   final headers = {
@@ -89,16 +99,24 @@ static Future <void> _checkAppKey() async {
     if (responseData['status'] == 1){
       print(responseData);
       retVal = true;
-      String appKey = responseData['key'].toString();
-      String appTitle = responseData['Title'].toString();
+      String appKey = responseData['api_key'].toString();
+      String appTitle = responseData['fest_name'].toString();
       //String logoData = responseData['logo'].toString();
       String festid=responseData['fest_id'].toString();
+      String staffid = responseData['userid'].toString();
+      String category = responseData['category'].toString();
+      String eventid = responseData['eventid'].toString();
+      String usertype = responseData['usertype'].toString();
+      String message = responseData['message'].toString();
       await SharedPrefHelper.saveAppData(
       appKey: appKey,
       appTitle: appTitle,
-      logoData: festid,
-    );
+      festid: festid,
+      usertype : usertype,
 
+    );
+    await _checkAppKey();
+    await _appdata();
     print('App data saved to SharedPreferences');
    
     } else {
@@ -123,9 +141,11 @@ static Future <void> _checkAppKey() async {
     Get.log(event);
     final credentials = {
     'cand_id': Candid,
-    'staff_id':StaffId,
+    'user_id':StaffId,
     'category': category,
-    'eventid': event
+    'eventid': event,
+    'usertype' : appdata!['usertype'],
+    'fest_id' : appdata!['festid']
     };
 
     Get.log(credentials.toString());
@@ -176,9 +196,11 @@ static Future<bool> issueIdCard() async {
   Get.log("issuing ID");
   final credentials = {
   'cand_id': Candid,
-  'staff_id':StaffId,
+  'user_id':StaffId,
   'category': category,
-  'eventid': eventid
+  'eventid': eventid,
+  'usertype' : appdata!['usertype'],
+  'fest_id' : appdata!['festid']
   };
 
   final headers = {
@@ -221,7 +243,7 @@ static Future<Participantdetails?> EventId() async {
     // Prepare request body and headers
     final credentials = {
       'cand_id': Candid,
-      'staff_id': StaffId,
+      'user_id': StaffId,
       'category': category,
       'eventid': eventid,
     };
@@ -277,7 +299,7 @@ static Future<bool> issueChestNumber(Participantdetails partdet) async {
     String? eventid = await LocalStorage.getValue('event_id');
   final credentials = {
   'cand_id': Candid,
-  'staff_id': StaffId,
+  'user_id': StaffId,
   'category': category,
   'eventid': eventid,
   'chest_code': partdet.chestcode,
@@ -315,7 +337,10 @@ static Future<bool> issueChestNumber(Participantdetails partdet) async {
 static Future<dynamic> getplacementDetails(String chestno) async {
   bool retVal = false;
   final credentials = {
-    'chestno' : chestno
+    'chestno' : chestno,
+    'fest_id' : appdata!['festid'],
+    'user_id' : await LocalStorage.getValue('staff_id'),
+    'usertype' : appdata!['usertype']
   };
   final headers = {
     'Content-Type': 'application/json',
@@ -339,7 +364,9 @@ static Future<dynamic> getplacementDetails(String chestno) async {
     } else {
       PlacementDetails placementDetails = PlacementDetails(
           instname: decoderesponse['inst_name'],
-          members: decoderesponse['members']
+          members: decoderesponse['members'],
+          memberstatus: decoderesponse['member_status']
+
         );
         return placementDetails;
     }
@@ -389,11 +416,6 @@ static Future<bool> postplacement(String firstpo, String secondpo) async {
 
 
 }
-<<<<<<< HEAD
-
-/*
-=======
->>>>>>> 23afb889d726ebb2daa380c9c837be4e10ee2119
 
 /*import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -731,12 +753,4 @@ static Future<bool> postplacement(String firstpo, String secondpo) async {
   }
   Get.snackbar("Error", "An error occured", colorText: Colors.white);
   return retVal;
-}
-
-
-<<<<<<< HEAD
-}
-*/
-=======
 }*/
->>>>>>> 23afb889d726ebb2daa380c9c837be4e10ee2119

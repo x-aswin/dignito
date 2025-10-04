@@ -6,13 +6,15 @@ class SharedPrefHelper {
   static Future<void> saveAppData({
     required String appKey,
     required String appTitle,
-    required String logoData,
+    required String festid,
+    required String usertype,
   }) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     
     await prefs.setString('appKey', appKey);
     await prefs.setString('appTitle', appTitle);
-    await prefs.setString('logoData', logoData);
+    await prefs.setString('festid', festid);
+    await prefs.setString('usertype', usertype);
   }
 
 
@@ -22,7 +24,8 @@ class SharedPrefHelper {
     return {
       'appKey': prefs.getString('appKey') ?? '',
       'appTitle': prefs.getString('appTitle') ?? '',
-      'logoData': prefs.getString('logoData') ?? '',
+      'festid': prefs.getString('festid') ?? '',
+      'usertype' : prefs.getString('usertype')?? '',
     };
   }
 
@@ -47,7 +50,7 @@ class SharedPrefHelper {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     
     // Get the Base64 string stored in SharedPreferences
-    String base64String = prefs.getString('logoData') ?? '';
+    String base64String = prefs.getString('festid') ?? '';
     
     if (base64String.isEmpty) {
       print("No logo data found in SharedPreferences.");
