@@ -13,7 +13,7 @@ class LoginView extends StatelessWidget {
 
   // Cached Future to avoid multiple async calls
   final Future<Map<String, String>> _assetsFuture = _getFestAssetsStatic();
-   
+
   // Static method to fetch assets safely
   static Future<Map<String, String>> _getFestAssetsStatic() async {
     String festid = (await LocalStorage.getValue('festid'))?.toString() ?? '1';
@@ -69,55 +69,61 @@ class LoginView extends StatelessWidget {
                   child: AnimatedPadding(
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.easeOut,
-                    padding: EdgeInsets.only(bottom: keyboardInset), // dynamic shift
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 20.0),
-                          child: Image.asset(
-                            assets['logo'] ?? 'assets/dignito_logo.png',
-                            height: 200,
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        InputField(
-                          labelText: 'Username',
-                          icon: Icons.person,
-                          initialValue: '',
-                          onPressedCallback: loginCtrl.clearErrorMsg,
-                          readOnly: false,
-                          controller: loginCtrl.usernameCtrl,
-                        ),
-                        const SizedBox(height: 20),
-                        InputField(
-                          labelText: 'Password',
-                          icon: Icons.lock,
-                          initialValue: '',
-                          onPressedCallback: loginCtrl.clearErrorMsg,
-                          readOnly: false,
-                          controller: loginCtrl.passwordCtrl,
-                        ),
-                        const SizedBox(height: 20),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          child: GetBuilder<LoginController>(
-                            builder: (_) => Text(
-                              loginCtrl.errorMsg,
-                              style: const TextStyle(
-                                  color: Colors.red, fontSize: 15),
-                              textAlign: TextAlign.center,
+                    padding: EdgeInsets.only(bottom: keyboardInset),
+                    child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      reverse: true,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 20.0),
+                            child: Image.asset(
+                              assets['logo'] ?? 'assets/dignito_logo.png',
+                              height: 200,
+                              fit: BoxFit.contain,
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 20),
-                        button(
-                          'Login',
-                          () => loginCtrl.validateInputs(),
-                          CustomColors.regText,
-                        ),
-                      ],
+                          const SizedBox(height: 20),
+                          InputField(
+                            labelText: 'Username',
+                            icon: Icons.person,
+                            initialValue: '',
+                            onPressedCallback: loginCtrl.clearErrorMsg,
+                            readOnly: false,
+                            controller: loginCtrl.usernameCtrl,
+                          ),
+                          const SizedBox(height: 20),
+                          InputField(
+                            labelText: 'Password',
+                            icon: Icons.lock,
+                            initialValue: '',
+                            onPressedCallback: loginCtrl.clearErrorMsg,
+                            readOnly: false,
+                            controller: loginCtrl.passwordCtrl,
+                          ),
+                          const SizedBox(height: 20),
+                          SizedBox(),
+                          const SizedBox(height: 20),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            child: GetBuilder<LoginController>(
+                              builder: (_) => Text(
+                                loginCtrl.errorMsg,
+                                style: const TextStyle(
+                                    color: Colors.red, fontSize: 15),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          button(
+                            'Login',
+                            () => loginCtrl.validateInputs(),
+                            CustomColors.regText,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
