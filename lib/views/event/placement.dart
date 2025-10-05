@@ -21,7 +21,7 @@ class Placement extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        authctrl.verifyLogout();
+       authctrl.verifyLogout();
         return false;
       },
       child: Scaffold(

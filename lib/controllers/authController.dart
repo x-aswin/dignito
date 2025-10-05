@@ -4,6 +4,7 @@ import '../views/login.dart';
 import 'package:flutter/material.dart';
 import '../services/local_storage_service.dart';
 import '../views/reg/reg_qr.dart';
+import 'package:restart_app/restart_app.dart';
 
 
 
@@ -39,11 +40,21 @@ class AuthController extends GetxController {
     Get.off(() => const Homepage());
   }
 
-  void logout() async {
-      await LocalStorage.removeValue('Candid');
-      await LocalStorage.removeValue('staff_id');
-      await LocalStorage.removeValue('category');
-      await LocalStorage.removeValue('eventid');
-      Get.offAll(() => LoginView());
-    }
+void logout() async {
+/*  await LocalStorage.removeValue('Candid');
+  await LocalStorage.removeValue('staff_id');
+  await LocalStorage.removeValue('category');
+  await LocalStorage.removeValue('eventid');
+
+  //Clear all GetX controllers and dependencies
+  Get.deleteAll(force: true);
+
+  // clear all navigation history
+  Get.offAll(() => LoginView());
+*/
+
+ Restart.restartApp(); 
+
+}
+
   }
