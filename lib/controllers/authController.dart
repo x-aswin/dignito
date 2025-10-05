@@ -10,25 +10,43 @@ import 'package:restart_app/restart_app.dart';
 
 class AuthController extends GetxController {
   void verifyLogout() {
-    Get.dialog(
-      AlertDialog(
-        title: const Text('Logout'),
-        content: const Text('Are you sure you want to log out?'),
+  Get.dialog(
+    Theme(
+      data: ThemeData.dark(), // Use dark theme
+      child: AlertDialog(
+        backgroundColor: const Color.fromARGB(255, 65, 30, 30), // background
+        title: const Text(
+          'Logout',
+          style: TextStyle(color: Colors.white),
+        ),
+        content: const Text(
+          'Are you sure you want to log out?',
+          style: TextStyle(color: Colors.white70),
+        ),
         actions: [
           TextButton(
             onPressed: () => Get.back(),
-            child: const Text('No'),
+            child: const Text(
+              'No',
+              style: TextStyle(color: Colors.blueAccent),
+            ),
           ),
           TextButton(
             onPressed: () {
               logout();
             },
-            child: const Text('Yes'),
+            child: const Text(
+              'Yes',
+              style: TextStyle(color: Colors.redAccent),
+            ),
           ),
         ],
       ),
-    );
-  }
+    ),
+    barrierDismissible: false, // Optional: prevent dismiss by tapping outside
+  );
+}
+
 
   void cancelReg() async {
     await LocalStorage.removeValue('Candid');
