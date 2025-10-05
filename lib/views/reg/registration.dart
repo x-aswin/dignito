@@ -24,8 +24,8 @@ class Registration extends StatelessWidget {
 
     return WillPopScope(
       onWillPop: () async {
-        authctrl.verifyLogout();
-        return false;
+        //authctrl.verifyLogout();
+        return true;
       },
       child: Scaffold(
         backgroundColor: Colors.transparent,

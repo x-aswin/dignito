@@ -40,7 +40,7 @@ Future<void> getCandidateDetails() async {
         if (candidateDetails.cname == "Err") {
           Get.snackbar("Unsuccessful", 'Invalid Id', colorText: Colors.white);
         } else {
-          Get.off(() => Registration(candidateDetails: candidateDetails));
+          Get.to(() => Registration(candidateDetails: candidateDetails));
         }
       } else {
         errorMsg.value = ErrorMessages.InvalidCandidateIdError;
