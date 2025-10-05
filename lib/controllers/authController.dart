@@ -40,8 +40,8 @@ class AuthController extends GetxController {
     Get.off(() => const Homepage());
   }
 
-void logout() async {
-/*  await LocalStorage.removeValue('Candid');
+/* void logout() async {
+ await LocalStorage.removeValue('Candid');
   await LocalStorage.removeValue('staff_id');
   await LocalStorage.removeValue('category');
   await LocalStorage.removeValue('eventid');
@@ -51,10 +51,51 @@ void logout() async {
 
   // clear all navigation history
   Get.offAll(() => LoginView());
-*/
+
 
  Restart.restartApp(); 
+ }
+*/
+void logout() async {
+  // Show loading dialog
+  Get.dialog(
+    Center(
+      child: Container(
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          color: Colors.black87,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const CircularProgressIndicator(color: Colors.white),
+            const SizedBox(height: 16),
+            
+          ],
+        ),
+      ),
+    ),
+    barrierDismissible: false,
+  );
+
+  // Small delay to ensure loading is visible
+  await Future.delayed(const Duration(milliseconds: 300));
+
+  // Clear storage and controllers
+  await LocalStorage.removeValue('Candid');
+  await LocalStorage.removeValue('staff_id');
+  await LocalStorage.removeValue('category');
+  await LocalStorage.removeValue('eventid');
+
+  // Delete all GetX controllers
+  Get.deleteAll(force: true);
+
+  // Restart the app
+  Restart.restartApp();
+}
+
 
 }
 
-  }
+
