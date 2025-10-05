@@ -289,6 +289,10 @@ static Future<Participantdetails?> EventId() async {
     if (response.statusCode == 200) {
       final decodedResponse = json.decode(response.body);
 
+
+      print("reponse details after scan qr data");
+      print(decodedResponse.toString());
+
       // Parse the response into Participantdetails model
       try {
         Participantdetails participantDetails = 
