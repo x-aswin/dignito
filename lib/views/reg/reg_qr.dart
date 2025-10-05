@@ -33,7 +33,7 @@ class RegScanQR extends StatelessWidget {
             fit: BoxFit.cover,
             colorFilter: const ColorFilter.mode(
                 Colors.black54, BlendMode.darken),
-          ),,
+          ),
                 gradient:  RadialGradient(
                   colors: [CustomColors.regTextColor, Color(0xFF271C22)],
                   center: Alignment.topCenter,

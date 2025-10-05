@@ -1,3 +1,4 @@
+import 'package:dignito/custom_colors.dart';
 import 'package:flutter/material.dart';
 
 class ChestField extends StatelessWidget {
@@ -26,7 +27,7 @@ class ChestField extends StatelessWidget {
     return TextField(
       controller: effectiveController,
       keyboardType: TextInputType.number,
-      style: const TextStyle(color: Colors.white),
+      style: const TextStyle(color: CustomColors.backgroundColor),
       readOnly: isEditable == 0, // Makes field read-only if isEditable is 0
       onChanged: (value) {
         if (onChanged != null && isEditable != 0) { // Ensure onChanged triggers only if editable
@@ -38,23 +39,23 @@ class ChestField extends StatelessWidget {
           padding: const EdgeInsets.only(right: 8.0), // Add some space between text and input
           child: Text(
             fixedString,
-            style: const TextStyle(color: Colors.white, fontSize: 16),
+            style: const TextStyle(color: CustomColors.backgroundColor, fontSize: 16),
           ),
         ),
-        prefixIcon: Icon(icon, color: Colors.white), // Icon on the left
+        prefixIcon: Icon(icon, color: CustomColors.backgroundColor), // Icon on the left
         labelText: 'Chest Number',
-        labelStyle: const TextStyle(color: Colors.white), // White label text
+        labelStyle: const TextStyle(color: CustomColors.backgroundColor), // White label text
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Colors.white), // White border
+          borderSide: const BorderSide(color: CustomColors.backgroundColor), // White border
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Colors.white, width: 2.0), // Thicker white border when focused
+          borderSide: const BorderSide(color: CustomColors.backgroundColor, width: 2.0), // Thicker white border when focused
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Colors.white), // Default border
+          borderSide: const BorderSide(color: CustomColors.backgroundColor), // Default border
         ),
       ),
     );

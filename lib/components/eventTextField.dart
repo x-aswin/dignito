@@ -1,3 +1,4 @@
+import 'package:dignito/custom_colors.dart';
 import 'package:flutter/material.dart';
 
 class EventText extends StatelessWidget {
@@ -37,15 +38,15 @@ class EventText extends StatelessWidget {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Colors.white), // White border
+          borderSide:  BorderSide(color: CustomColors.regTextColor), // White border
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Colors.white, width: 2.0), // Thicker white border when focused
+          borderSide: BorderSide(color: CustomColors.regTextColor, width: 2.0), // Thicker white border when focused
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Colors.white), // Default border color
+          borderSide: BorderSide(color: CustomColors.regTextColor), // Default border color
         ),
       ),
     );

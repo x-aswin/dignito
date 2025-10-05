@@ -192,7 +192,7 @@ class Placement extends StatelessWidget {
                     () {
                       eventctrl.postPlacements();
                     },
-                    CustomColors.regText,
+                    CustomColors.buttonColor,
                   ),
 
                     SizedBox(height: 20),
