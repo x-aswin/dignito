@@ -79,8 +79,7 @@ void logout() async {
     barrierDismissible: false,
   );
 
-  // Small delay to ensure loading is visible
-  await Future.delayed(const Duration(milliseconds: 300));
+
 
   // Clear storage and controllers
   await LocalStorage.removeValue('Candid');
