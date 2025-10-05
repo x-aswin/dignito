@@ -56,7 +56,7 @@ class Eventcontroller extends GetxController {
       if (participantDetails.cname == "Err") {
         Get.snackbar('Unsuccessful', 'Invalid ID', colorText: Colors.white);
       } else {
-        Get.off(() => EventDetails(participantdetails: participantDetails));
+        Get.to(() => EventDetails(participantdetails: participantDetails));
       }
     } else {
       Get.snackbar('Error', 'Please try again', colorText: Colors.white);

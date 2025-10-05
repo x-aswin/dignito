@@ -29,8 +29,8 @@ class EventDetails extends StatelessWidget {
 
     return WillPopScope(
       onWillPop: () async {
-        authctrl.verifyLogout();
-        return false;
+      //  authctrl.verifyLogout();
+        return true;
       },
       child: Scaffold(
         body: Container(
