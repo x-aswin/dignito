@@ -45,6 +45,18 @@ class LoginController extends GetxController {
     if (loginStatus) {
       //save login info to shared preferences
       SharedPrefHelper.saveLoginInfo(username: username, password: password);
+ Get.snackbar(
+  "Info",
+  "Login info saved! Your username and password will be auto-filled next time.",
+  snackPosition: SnackPosition.BOTTOM,
+  backgroundColor: const Color.fromARGB(255, 85, 38, 32),
+  colorText: Colors.white,
+  margin: const EdgeInsets.all(12),
+  borderRadius: 8,
+  duration: const Duration(seconds: 4),
+  icon: const Icon(Icons.info, color: Colors.white),
+);
+
       
       clearErrorMsg();
       String? category = await LocalStorage.getValue('category');

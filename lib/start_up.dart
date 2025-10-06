@@ -45,6 +45,22 @@ import 'package:dignito/main.dart';
         Map<String, String> loginData = await SharedPrefHelper.getLoginInfo();
         print("Login Data: $loginData");
 
+
+      if (loginData['username'] !='') {
+        Get.snackbar(
+  "Info",
+  "Your login info has been filled. Please proceed to login.",
+  snackPosition: SnackPosition.BOTTOM,
+  backgroundColor: const Color.fromARGB(255, 50, 90, 70), // a nice greenish tone
+  colorText: Colors.white,
+  margin: const EdgeInsets.all(12),
+  borderRadius: 8,
+  duration: const Duration(seconds: 4),
+  icon: const Icon(Icons.check_circle_outline, color: Colors.white),
+);
+}
+
+
         LoginController loginController = Get.put(LoginController());
         ///LoginController loginController = Get.find();
         loginController.usernameCtrl.text = loginData['username']!;
