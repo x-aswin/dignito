@@ -59,4 +59,26 @@ class SharedPrefHelper {
     // Convert Base64 string to binary data
     return base64Decode(base64String); // Returns a Uint8List (binary data)
   }
+
+
+
+  // Save login information to SharedPreferences
+  static Future<void> saveLoginInfo({
+    required String username,
+    required String password,
+  }) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    await prefs.setString('username', username);
+    await prefs.setString('password', password);
+  }
+  static Future<Map<String, String>> getLoginInfo() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return {
+      'username': prefs.getString('username') ?? '',
+      'password': prefs.getString('password') ?? '',
+    };
+  }
+
+
 }

@@ -80,6 +80,8 @@ class AuthController extends GetxController {
 */
 void logout() async {
   // Show loading dialog
+
+  
   Get.dialog(
     Center(
       child: Container(

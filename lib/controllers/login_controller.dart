@@ -43,6 +43,9 @@ class LoginController extends GetxController {
     bool loginStatus = await HttpServices.login(username, password);
 
     if (loginStatus) {
+      //save login info to shared preferences
+      SharedPrefHelper.saveLoginInfo(username: username, password: password);
+      
       clearErrorMsg();
       String? category = await LocalStorage.getValue('category');
 

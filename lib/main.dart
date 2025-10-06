@@ -1,10 +1,14 @@
+ import 'package:dignito/custom_colors.dart';
 import 'package:flutter/material.dart';
 import 'views/splash_screen.dart';
 import 'views/login.dart';
 import 'views/initial_login.dart';
 import 'package:get/get.dart';
 import 'start_up.dart';
-void main() {
+void main() async{
+    WidgetsFlutterBinding.ensureInitialized();
+
+    await CustomColors.updateRegTextColor(); // wait for festId
   runApp(const MyApp());
 }
 
