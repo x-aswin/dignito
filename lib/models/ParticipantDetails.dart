@@ -26,7 +26,7 @@ class Participantdetails {
       cname: json["cname"] ?? 'Unknown Candidate',
       events: json["events"] ?? 'No Event',
       status: json["status"] ?? 0,
-      paystatus: json["paystatus"] ?? 'unPaid',
+      paystatus: json["pay_status"] ?? 'unPaid',
       chestcode: json["chestcode"] ?? 'N/A',
       chestnumber: json['chestno'].toString() ?? '0', // Handle as string
       cheststatus: json['cheststatus'] ?? 0,

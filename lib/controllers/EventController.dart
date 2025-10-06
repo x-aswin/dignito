@@ -70,11 +70,14 @@ class Eventcontroller extends GetxController {
 
 
   void allocateNumber(Participantdetails partdet) async {
+    try{
+
+    
   isLoading.value = true; // start loading
   partdet.chestnumber = allocatedNumberController.text.trim();
 
   bool response = await HttpServices.issueChestNumber(partdet);
-  isLoading.value = false; // stop loading
+  
 
   if (!response) {
     Get.snackbar('Unsuccessful', 'An error occurred', colorText: Colors.white);
@@ -82,21 +85,33 @@ class Eventcontroller extends GetxController {
     Get.snackbar('Successful', 'Chest number allocated successfully', colorText: Colors.white);
     Get.off(() => const Homepage());
   }
+    }
+    catch(e){
+      Get.snackbar('Error', 'Something went wrong', colorText: Colors.white);
+    }
+    finally{
+      isLoading.value=false;
+    }
 }
 
 
 void fetchDetails(int position) async {
   isLoading.value = true; // start loading
+  try{
   if (position == 1) {
+    print('at position 1');
     final chestno = firstPrizeController.text.trim();
+    
     var response = await HttpServices.getplacementDetails(chestno);
+    print('response : ${response.toString()}');
     if (response != false) {
-      firstPrizeinst.text = response.instname;
-      firstPrizememb.text = response.members;
+      firstPrizeinst.text = response.instname+"";
+      firstPrizememb.text = response.members+"";
     } else {
       Get.snackbar('Error', 'Details not found', colorText: Colors.white);
     }
   } else {
+    print('at position 2');
     final chestno = secondPrizeController.text.trim();
     var response = await HttpServices.getplacementDetails(chestno);
     if (response != false) {
@@ -106,12 +121,19 @@ void fetchDetails(int position) async {
       Get.snackbar('Error', 'Details not found', colorText: Colors.white);
     }
   }
-  isLoading.value = false; // stop loading
+  } catch (e) {
+    Get.snackbar('Error', 'Something went wrong', colorText: Colors.white);
+    print('error is :$e');
+  }
+  finally {
+    isLoading.value = false; // stop loading
+  }
 }
 
 void postPlacements() async {
-  isLoading.value = true; // start loading
-  final firstposition = firstPrizeController.text.trim();
+  isLoading.value = true; 
+  try{
+final firstposition = firstPrizeController.text.trim();
   final secondposition = secondPrizeController.text.trim();
   final Response = await HttpServices.postplacement(firstposition, secondposition);
   isLoading.value = false; // stop loading
@@ -122,6 +144,16 @@ void postPlacements() async {
     Get.snackbar('Error', 'Failed to post placements', colorText: Colors.white);
   }
 }
+catch(e){
+  Get.snackbar('Error', 'Something went wrong', colorText: Colors.white);
+  
+}
+finally{
+  isLoading.value=false;
+}
+  }
+  
+  
 
 
 /*

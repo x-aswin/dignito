@@ -234,6 +234,8 @@ static Future<bool> issueIdCard() async {
     body: body,
   );
   Get.log(response.statusCode.toString());
+  print(response.statusCode.toString());
+  print(response.body.toString());
   if(response.statusCode == 200)
   {
     print("updated");
@@ -297,6 +299,8 @@ static Future<Participantdetails?> EventId() async {
       try {
         Participantdetails participantDetails = 
             Participantdetails.fromJson(decodedResponse);
+
+            print(participantDetails.toString());
         return participantDetails;
       } catch (e) {
         Get.log('Error parsing Participantdetails: $e');
@@ -331,9 +335,11 @@ static Future<bool> issueChestNumber(Participantdetails partdet) async {
   'chest_code': partdet.chestcode,
   'chest_no': partdet.chestnumber,
   'chest_status': partdet.cheststatus,
-  'api_key' : appkey
+  'usertype' : appdata!['usertype'],
+  'api_key' : appkey,
+  'fest_id' : appdata!['festid']
   };
-
+  print(appkey);
   Get.log(credentials.toString());
 
   final headers = {
@@ -349,6 +355,7 @@ static Future<bool> issueChestNumber(Participantdetails partdet) async {
   );
   print(response.body);
   final decoderesponse = jsonDecode(response.body);
+  print(response.body.toString());
   if(response.statusCode == 200)
   {
     print("updated");
@@ -376,11 +383,15 @@ static Future<dynamic> getplacementDetails(String chestno) async {
   final body = json.encode(credentials);
   Get.log(credentials.toString());
   final response = await http.post(
-    Uri.parse(' https://dicoman.dist.ac.in/api/Fest/Team'), 
+    Uri.parse('https://dicoman.dist.ac.in/api/Fest/Team'), 
     headers: headers,
     body: body,
   );
+  print("before  req");
+  print(response.body.toString());
   final decoderesponse = jsonDecode(response.body);
+  print("reponse");
+  print((decoderesponse).toString());
   if(response.statusCode == 200)
   {
     Get.log("Response: ${response.body.toString()}");
@@ -391,9 +402,10 @@ static Future<dynamic> getplacementDetails(String chestno) async {
       PlacementDetails placementDetails = PlacementDetails(
           instname: decoderesponse['inst_name'],
           members: decoderesponse['members'],
-          memberstatus: decoderesponse['member_status']
+          memberstatus: decoderesponse['member_status'].toString()
 
         );
+        retVal = true;
         return placementDetails;
     }
   }
@@ -409,21 +421,27 @@ static Future<bool> postplacement(String firstpo, String secondpo) async {
     'prize': {
       '1': firstpo,
       '2': secondpo,
-      'api_key' : appkey
-    }
+    },
+
+    'api_key' : appkey,
+    'fest_id' : appdata!['festid'],
+    'user_id' : await LocalStorage.getValue('staff_id'),
+    'usertype' : appdata!['usertype'],
   };
   final headers = {
     'Content-Type': 'application/json',
   };
-  
+  try{
   final body = json.encode(credentials);
   Get.log(credentials.toString());
   final response = await http.post(
-    Uri.parse(' https://dicoman.dist.ac.in/api/Fest/Prize'), 
+    Uri.parse('https://dicoman.dist.ac.in/api/Fest/Prize'), 
     headers: headers,
     body: body,
   );
   Get.log(response.statusCode.toString());
+  print(response.statusCode.toString());
+  print(response.body.toString());
   if(response.statusCode == 200)
   {
     final decoderesponse = jsonDecode(response.body);
@@ -436,7 +454,14 @@ static Future<bool> postplacement(String firstpo, String secondpo) async {
      return true;
     }
   }
-  Get.snackbar("Error", "An error occured", colorText: Colors.white);
+  else{
+    Get.snackbar("Error", "An error occured", colorText: Colors.white);
+  }
+  }
+  catch(e){
+    print('error : $e');
+  }
+
   return retVal;
 }
 

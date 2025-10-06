@@ -3,7 +3,7 @@
 class PlacementDetails {
   final String instname;
   final String members;
-  final String? memberstatus;
+  final String memberstatus;
 
   PlacementDetails({
     required this.instname,

@@ -162,8 +162,8 @@ class Placement extends StatelessWidget {
                                  eventctrl.fetchDetails(2);
                                 }, // Use verify icon
                                 style: ElevatedButton.styleFrom(
-                                  foregroundColor: Colors.white,
-                                  backgroundColor: CustomColors.regText,
+                                  foregroundColor: CustomColors.buttonTextColor,
+                                backgroundColor: CustomColors.regTextColor,
                                   padding: EdgeInsets.all(10), // Icon color
                                   shape: CircleBorder(), // Circular shape
                                   minimumSize: Size(50, 50),
