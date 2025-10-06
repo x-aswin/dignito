@@ -144,27 +144,45 @@ class EventDetails extends StatelessWidget {
                       Obx(() {
   return SizedBox(
     width: double.infinity,
-    child: ElevatedButton(
-      onPressed: eventctrl.isLoading.value
-          ? null // disable button while loading
-          : () => eventctrl.allocateNumber(participantdetails),
-      style: ElevatedButton.styleFrom(
-         backgroundColor: CustomColors.buttonColor,
-        padding: const EdgeInsets.symmetric(vertical: 15),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+    child: Stack(
+      alignment: Alignment.center,
+      children: [
+        ElevatedButton(
+          onPressed: eventctrl.isLoading.value
+              ? null
+              : () => eventctrl.allocateNumber(participantdetails),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: CustomColors.buttonColor,
+            padding: const EdgeInsets.symmetric(vertical: 15),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          child: Text(
+            'Submit',
+            style: TextStyle(
+              fontSize: 18,
+              color: CustomColors.buttonTextColor,
+            ),
+          ),
         ),
-      ),
-child: Text(
-              'Submit',
-              style: TextStyle(
-                fontSize: 18,
-                color: CustomColors.buttonTextColor,
+        if (eventctrl.isLoading.value)
+          const Positioned(
+            right: 16,
+            child: SizedBox(
+              height: 20,
+              width: 20,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                color: Colors.white,
               ),
             ),
+          ),
+      ],
     ),
   );
 })
+
 
                       ],
                     ],
