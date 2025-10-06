@@ -1,3 +1,6 @@
+import 'package:dignito/controllers/EventController.dart';
+import 'package:dignito/controllers/registration_controller.dart';
+import 'package:dignito/main.dart';
 import 'package:dignito/views/event/homepage.dart';
 import 'package:get/get.dart';
 import '../views/login.dart';

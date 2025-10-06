@@ -121,7 +121,7 @@ class RegScanQR extends StatelessWidget {
                           icon: Icons.person,
                           initialValue: '',
                           onPressedCallback: qrctrl.clearErrorMsg,
-                          readOnly: false,
+                          readOnly: true,
                           controller: qrctrl.candid,
                         ),
                         const SizedBox(height: 20),

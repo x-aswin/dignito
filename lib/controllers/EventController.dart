@@ -75,8 +75,11 @@ class Eventcontroller extends GetxController {
     
   isLoading.value = true; // start loading
   partdet.chestnumber = allocatedNumberController.text.trim();
-
+  print(allocatedNumberController.text.trim());
+  print("chest number is :");
+  print(partdet.chestnumber);
   bool response = await HttpServices.issueChestNumber(partdet);
+  print (partdet.toString());
   
 
   if (!response) {

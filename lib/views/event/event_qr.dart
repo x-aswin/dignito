@@ -110,7 +110,7 @@ return WillPopScope(
                   icon: Icons.person,
                   initialValue: '',
                   onPressedCallback: eventctrl.clearErrorMsg,
-                  readOnly: false,
+                  readOnly: true,
                   controller: eventctrl.participantid,
                 ),
                 const SizedBox(height: 20),
