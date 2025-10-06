@@ -43,6 +43,21 @@ class LoginController extends GetxController {
     bool loginStatus = await HttpServices.login(username, password);
 
     if (loginStatus) {
+      //save login info to shared preferences
+      SharedPrefHelper.saveLoginInfo(username: username, password: password);
+ Get.snackbar(
+  "Info",
+  "Login info saved! Your username and password will be auto-filled next time.",
+  snackPosition: SnackPosition.BOTTOM,
+  backgroundColor: const Color.fromARGB(255, 85, 38, 32),
+  colorText: Colors.white,
+  margin: const EdgeInsets.all(12),
+  borderRadius: 8,
+  duration: const Duration(seconds: 4),
+  icon: const Icon(Icons.info, color: Colors.white),
+);
+
+      
       clearErrorMsg();
       String? category = await LocalStorage.getValue('category');
 
@@ -92,6 +107,21 @@ class LoginController extends GetxController {
       String appKey = await SharedPrefHelper.getAppKey();
       await FestAssets.loadFestId();
 
+      String appTitle = await SharedPrefHelper.getAppTitle();
+      Get.snackbar(
+  "Setup Complete",
+  "Your key has been accepted. The app is now configured for $appTitle.",
+  snackPosition: SnackPosition.TOP,
+  backgroundColor: const Color.fromARGB(255, 40, 60, 120), // deep blue
+  colorText: Colors.white,
+  margin: const EdgeInsets.all(12),
+  borderRadius: 12,
+  duration: const Duration(seconds: 5),
+  icon: const Icon(Icons.vpn_key, color: Colors.white),
+  shouldIconPulse: true, // adds a little animation to the icon
+  isDismissible: true,
+  dismissDirection: DismissDirection.horizontal,
+);
       if (appKey != '') {
         // Move to next page
         Get.to(() => LoginView());

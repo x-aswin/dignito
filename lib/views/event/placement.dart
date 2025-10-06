@@ -187,13 +187,57 @@ class Placement extends StatelessWidget {
                     SizedBox(height: 20),
 
                   // Submit Button
-                  button(
-                    'Submit',
-                    () {
-                      eventctrl.postPlacements();
-                    },
-                    CustomColors.buttonColor,
-                  ),
+                // Submit Button with loading, with horizontal margin
+Obx(() {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 20.0), // Add space from both sides
+    child: SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: eventctrl.isLoading.value
+            ? null
+            : () {
+                eventctrl.postPlacements();
+              },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: CustomColors.buttonColor,
+          padding: const EdgeInsets.symmetric(vertical: 15),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            // Button text
+            Visibility(
+              visible: !eventctrl.isLoading.value,
+              child: Text(
+                'Submit',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: CustomColors.buttonTextColor,
+                ),
+              ),
+            ),
+            // Small loading indicator
+            if (eventctrl.isLoading.value)
+              const SizedBox(
+                height: 20,
+                width: 20,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  color: Colors.white,
+                ),
+              ),
+          ],
+        ),
+      ),
+    ),
+  );
+}),
+
+
 
                     SizedBox(height: 20),
                   ],
