@@ -35,6 +35,7 @@ class SharedPrefHelper {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('appKey') ?? '';
   }
+  
 
   // Get appTitle from SharedPreferences
   static Future<String> getAppTitle() async {

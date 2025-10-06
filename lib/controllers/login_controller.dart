@@ -107,6 +107,21 @@ class LoginController extends GetxController {
       String appKey = await SharedPrefHelper.getAppKey();
       await FestAssets.loadFestId();
 
+      String appTitle = await SharedPrefHelper.getAppTitle();
+      Get.snackbar(
+  "Setup Complete",
+  "Your key has been accepted. The app is now configured for $appTitle.",
+  snackPosition: SnackPosition.TOP,
+  backgroundColor: const Color.fromARGB(255, 40, 60, 120), // deep blue
+  colorText: Colors.white,
+  margin: const EdgeInsets.all(12),
+  borderRadius: 12,
+  duration: const Duration(seconds: 5),
+  icon: const Icon(Icons.vpn_key, color: Colors.white),
+  shouldIconPulse: true, // adds a little animation to the icon
+  isDismissible: true,
+  dismissDirection: DismissDirection.horizontal,
+);
       if (appKey != '') {
         // Move to next page
         Get.to(() => LoginView());
