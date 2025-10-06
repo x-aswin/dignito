@@ -28,12 +28,7 @@ class ChestField extends StatelessWidget {
       controller: effectiveController,
       keyboardType: TextInputType.number,
       style: const TextStyle(color: CustomColors.backgroundColor),
-      readOnly: isEditable == 1, // Makes field read-only if isEditable is 0
-      onChanged: (value) {
-        if (onChanged != null && isEditable != 0) { // Ensure onChanged triggers only if editable
-          onChanged!(int.tryParse(value) ?? 0);
-        }
-      },
+      readOnly: false,
       decoration: InputDecoration(
         prefix: Container(
           padding: const EdgeInsets.only(right: 8.0), // Add some space between text and input
