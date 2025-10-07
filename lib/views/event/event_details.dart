@@ -103,9 +103,16 @@ class EventDetails extends StatelessWidget {
                       // Chest Number
                       if(participantdetails.paystatus == 'Paid') ...[
                       
+                      EventText(
+                        labelText: 'Chest Code',
+                        icon: Icons.abc,
+                        initialValue: participantdetails.chestcode,
+                        readOnly: true,
+                      ),
+                      SizedBox(height: constraints.maxHeight * 0.03),
+
                       ChestField(
                         icon: Icons.confirmation_number,
-                        fixedString: participantdetails.chestcode,
                         initialNumber: participantdetails.chestnumber,
                         numberController: eventctrl.allocatedNumberController,
                         isEditable: participantdetails.cheststatus,
@@ -114,7 +121,63 @@ class EventDetails extends StatelessWidget {
                       SizedBox(height: constraints.maxHeight * 0.03),
                       ],
 
-                      // Cancel Button
+                      
+                      
+
+                      // Verify Button
+                      if (participantdetails.paystatus == 'Paid') ...[
+                      Obx(() {
+  return SizedBox(
+    width: double.infinity,
+    child: ElevatedButton(
+      onPressed: eventctrl.isLoading.value
+          ? null
+          : () {
+              eventctrl.allocateNumber(participantdetails);
+              Get.back(result: true);
+            },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: CustomColors.buttonColor,
+        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+      child: eventctrl.isLoading.value
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: 2,
+                  ),
+                ),
+                SizedBox(width: 10),
+                Text(
+                  'Updating...',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            )
+          : Text(
+              'Update Chest Number',
+              style: TextStyle(
+                fontSize: 18,
+                color: CustomColors.buttonTextColor,
+              ),
+            ),
+    ),
+  );
+}),
+SizedBox(height: constraints.maxHeight * 0.02),
+// Cancel Button
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
@@ -122,14 +185,14 @@ class EventDetails extends StatelessWidget {
                             authctrl.cancelchest();
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: CustomColors.buttonColor,
+                            backgroundColor: const Color.fromARGB(255, 60, 60, 60),
                             padding: const EdgeInsets.symmetric(vertical: 15),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
                           child: Text(
-                            'Cancel',
+                            'Back to Scanner',
                             style: TextStyle(
                               fontSize: 18,
                               color: CustomColors.buttonTextColor,
@@ -137,52 +200,6 @@ class EventDetails extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: constraints.maxHeight * 0.02),
-
-                      // Verify Button
-                      if (participantdetails.paystatus == 'Paid') ...[
-                      Obx(() {
-  return SizedBox(
-    width: double.infinity,
-    child: Stack(
-      alignment: Alignment.center,
-      children: [
-        ElevatedButton(
-          onPressed: eventctrl.isLoading.value
-              ? null
-              : () => eventctrl.allocateNumber(participantdetails),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: CustomColors.buttonColor,
-            padding: const EdgeInsets.symmetric(vertical: 15),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-          child: Text(
-            'Submit',
-            style: TextStyle(
-              fontSize: 18,
-              color: CustomColors.buttonTextColor,
-            ),
-          ),
-        ),
-        if (eventctrl.isLoading.value)
-          const Positioned(
-            right: 16,
-            child: SizedBox(
-              height: 20,
-              width: 20,
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
-                color: Colors.white,
-              ),
-            ),
-          ),
-      ],
-    ),
-  );
-})
-
 
                       ],
                     ],

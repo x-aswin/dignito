@@ -464,6 +464,56 @@ static Future<bool> postplacement(String firstpo, String secondpo) async {
 
   return retVal;
 }
+static Future<bool> postplacement1(String firstpo) async {
+  bool retVal = false;
+  String? eventid = await LocalStorage.getValue('event_id');
+  final credentials = {
+    'event_id': eventid,
+    'prize': {
+      '1': firstpo
+    },
+
+    'api_key' : appkey,
+    'fest_id' : appdata!['festid'],
+    'user_id' : await LocalStorage.getValue('staff_id'),
+    'usertype' : appdata!['usertype'],
+  };
+  final headers = {
+    'Content-Type': 'application/json',
+  };
+  try{
+  final body = json.encode(credentials);
+  Get.log(credentials.toString());
+  final response = await http.post(
+    Uri.parse('https://dicoman.dist.ac.in/api/Fest/Prize'), 
+    headers: headers,
+    body: body,
+  );
+  Get.log(response.statusCode.toString());
+  print(response.statusCode.toString());
+  print(response.body.toString());
+  if(response.statusCode == 200)
+  {
+    final decoderesponse = jsonDecode(response.body);
+    Get.log("Response: ${response.body.toString()}");
+    if(decoderesponse['status'] == 0 ){
+      Get.snackbar('Unsuccessful', decoderesponse['message'], colorText: Colors.white);
+      return retVal;
+    } else {
+      Get.snackbar("Successful", decoderesponse['message'],colorText: Colors.white);
+     return true;
+    }
+  }
+  else{
+    Get.snackbar("Error", "An error occured", colorText: Colors.white);
+  }
+  }
+  catch(e){
+    print('error : $e');
+  }
+
+  return retVal;
+}
 
 
 }

@@ -98,7 +98,7 @@ class Eventcontroller extends GetxController {
     Get.snackbar('Unsuccessful', 'An error occurred', colorText: Colors.white);
   } else {
     Get.snackbar('Successful', 'Chest number allocated successfully', colorText: Colors.white);
-    Get.off(() => const Homepage());
+    //Get.off(() => const Homepage());
   }
     }
     catch(e){
@@ -144,20 +144,38 @@ void fetchDetails(int position) async {
     isLoading.value = false; // stop loading
   }
 }
-
+void placements(){
+  print(secondPrizeinst.text);
+  if(secondPrizeinst.text=="" || secondPrizeinst.text==null){
+      secondpriceconfirm();
+  }
+  else{
+    postPlacements();
+  }
+}
 void postPlacements() async {
-  isLoading.value = true; 
-  try{
-final firstposition = firstPrizeController.text.trim();
+  isLoading.value = true;
+  try {
+    if (secondPrizeinst.text == "" || secondPrizeinst.text == null) {
+      final firstposition = firstPrizeController.text.trim();
+
+      final Response = await HttpServices.postplacement1(firstposition);
+
+    }
+    else{
+      final firstposition = firstPrizeController.text.trim();
+ 
   final secondposition = secondPrizeController.text.trim();
+ 
   final Response = await HttpServices.postplacement(firstposition, secondposition);
+    }
   isLoading.value = false; // stop loading
 
-  if (Response == true) {
-    Get.snackbar('Success', 'Placements posted', colorText: Colors.white);
-  } else {
-    Get.snackbar('Error', 'Failed to post placements', colorText: Colors.white);
-  }
+  //if (Response == true) {
+  //  Get.snackbar('Success', 'Placements posted', colorText: Colors.white);
+  //} else {
+  //  Get.snackbar('Error', 'Failed to post placements', colorText: Colors.white);
+  //}
 }
 catch(e){
   Get.snackbar('Error', 'Something went wrong', colorText: Colors.white);
@@ -211,5 +229,42 @@ old code for fetchDetails and postPlacements
   void goBack() {
     Get.back();
   }
-
+ void secondpriceconfirm(){
+  Get.dialog(
+    Theme(
+      data: ThemeData.dark(), // Use dark theme
+      child: AlertDialog(
+        backgroundColor: const Color.fromARGB(255, 65, 30, 30), // background
+        title: const Text(
+          'Confirmation',
+          style: TextStyle(color: Colors.white),
+        ),
+        content: const Text(
+          'Are you sure you want to add Only First Prize?',
+          style: TextStyle(color: Colors.white70),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(),
+            child: const Text(
+              'No',
+              style: TextStyle(color: Colors.blueAccent),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              postPlacements();
+              Get.back();
+            },
+            child: const Text(
+              'Yes',
+              style: TextStyle(color: Colors.redAccent),
+            ),
+          ),
+        ],
+      ),
+    ),
+    barrierDismissible: false, // Optional: prevent dismiss by tapping outside
+  );
+ }
 }

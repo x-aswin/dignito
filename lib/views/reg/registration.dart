@@ -79,7 +79,8 @@ class Registration extends StatelessWidget {
                         Textfield(
                           labelText: 'ID Card Status',
                           initialValue:
-                              candidateDetails.status == 0 ? 'Issued' : 'Not Issued',
+                              //candidateDetails.status == 0 ? 'Issued' : 'Not Issued',
+                              candidateDetails.pay_status,
                         ),
                         SizedBox(height: constraints.maxHeight * 0.1),
 

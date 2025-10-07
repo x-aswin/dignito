@@ -197,7 +197,7 @@ Obx(() {
         onPressed: eventctrl.isLoading.value
             ? null
             : () {
-                eventctrl.postPlacements();
+                eventctrl.placements();
               },
         style: ElevatedButton.styleFrom(
           backgroundColor: CustomColors.buttonColor,

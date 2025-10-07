@@ -2,7 +2,6 @@ import 'package:dignito/custom_colors.dart';
 import 'package:flutter/material.dart';
 
 class ChestField extends StatelessWidget {
-  final String fixedString;
   final String initialNumber;
   final IconData icon;
   final ValueChanged<int>? onChanged;
@@ -11,7 +10,6 @@ class ChestField extends StatelessWidget {
 
   const ChestField({
     super.key,
-    required this.fixedString,
     required this.initialNumber,
     required this.icon,
     this.onChanged,
@@ -28,12 +26,17 @@ class ChestField extends StatelessWidget {
       controller: effectiveController,
       keyboardType: TextInputType.number,
       style: const TextStyle(color: CustomColors.backgroundColor),
-      readOnly: false,
+      readOnly: isEditable == 0, // Makes field read-only if isEditable is 0
+      onChanged: (value) {
+        if (onChanged != null && isEditable != 0) { // Ensure onChanged triggers only if editable
+          onChanged!(int.tryParse(value) ?? 0);
+        }
+      },
       decoration: InputDecoration(
         prefix: Container(
           padding: const EdgeInsets.only(right: 8.0), // Add some space between text and input
           child: Text(
-            fixedString,
+            '',
             style: const TextStyle(color: CustomColors.backgroundColor, fontSize: 16),
           ),
         ),

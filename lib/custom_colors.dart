@@ -32,7 +32,7 @@ class CustomColors {
   static Future<void> updateRegTextColor() async {
     await _appdata(); 
 
-    _festId =  appdata!['festid'] ?? '1';
+    _festId =appdata!['festid'] ?? '1';
   }
   
 

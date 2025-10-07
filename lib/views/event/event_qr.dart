@@ -154,7 +154,7 @@ class EventQr extends StatelessWidget {
 
     final String background = FestAssets.getBackground();
     final String logo = FestAssets.getLogo();
-
+  
     return WillPopScope(
       onWillPop: () async {
         authctrl.verifyLogout();
@@ -215,16 +215,19 @@ class EventQr extends StatelessWidget {
                           clipBehavior: Clip.antiAlias,
                           child: QRView(
                             key: eventctrl.qrKey,
-                            onQRViewCreated: (QRViewController controller) {
-                              eventctrl.qrViewController = controller;
-                              controller.scannedDataStream.listen((scanData) {
-                                eventctrl.onQRCodeScanned(scanData);
-                                // Automatically trigger eventDetailsPage()
-                                if (eventctrl.participantid.text.isNotEmpty) {
-                                  eventctrl.eventDetailsPage();
-                                }
-                              });
-                            },
+                            onQRViewCreated: (controller) {
+  eventctrl.qrViewController = controller;
+  controller.scannedDataStream.listen((scanData) {
+    eventctrl.onQRCodeScanned(scanData);
+    if (eventctrl.participantid.text.isNotEmpty) {
+      eventctrl.eventDetailsPage();
+    }
+  });
+},
+
+// Also handle resume on hot reload
+
+
                           ),
                         ),
                         const SizedBox(height: 56),
