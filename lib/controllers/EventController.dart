@@ -37,6 +37,18 @@ class Eventcontroller extends GetxController {
   void onQRCodeScanned(Barcode scanData) async {
     final String scannedCode = scanData.code ?? '';
     participantid.text = scannedCode;
+
+    Get.snackbar(
+  "Participant ID",
+  "${participantid.text}",
+  snackPosition: SnackPosition.BOTTOM,
+  backgroundColor: const Color.fromARGB(255, 49, 31, 29),
+  colorText: Colors.white,
+  margin: const EdgeInsets.all(12),
+  borderRadius: 8,
+  duration: const Duration(seconds: 2),
+  icon: const Icon(Icons.account_box, color: Colors.white),
+);
   }
 
   void eventDetailsPage() async {

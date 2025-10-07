@@ -114,6 +114,19 @@ class Regcontroller extends GetxController {
     hasScanned.value = true;
 
     candid.text = scannedCode;
+
+     Get.snackbar(
+  "Participant ID",
+  "${candid.text}",
+  snackPosition: SnackPosition.BOTTOM,
+  backgroundColor: const Color.fromARGB(255, 49, 31, 29),
+  colorText: Colors.white,
+  margin: const EdgeInsets.all(12),
+  borderRadius: 8,
+  duration: const Duration(seconds: 2),
+  icon: const Icon(Icons.account_box, color: Colors.white),
+);
+
     await getCandidateDetails(); // Automatically trigger function
   }
 

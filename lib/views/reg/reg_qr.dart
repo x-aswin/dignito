@@ -256,9 +256,9 @@ class RegScanQR extends StatelessWidget {
                                 controller.scannedDataStream.listen((scanData) {
                                   qrctrl.onQRCodeScanned(scanData);
                                   // Automatically trigger getCandidateDetails()
-                                  if (qrctrl.candid.text.isNotEmpty) {
-                                    qrctrl.getCandidateDetails();
-                                  }
+                                  //if (qrctrl.candid.text.isNotEmpty) {
+                                  //  qrctrl.getCandidateDetails();
+                                 // }
                                 });
                               },
                             ),
