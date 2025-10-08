@@ -90,6 +90,7 @@ class Registration extends StatelessWidget {
                           child: ElevatedButton(
                             onPressed: () {
                               authctrl.cancelReg();
+                              
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: CustomColors.backgroundColor,
@@ -100,7 +101,7 @@ class Registration extends StatelessWidget {
                               ),
                             ),
                             child: const Text(
-                              'Cancel',
+                              'Back to Scanner',
                               style: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -119,7 +120,8 @@ class Registration extends StatelessWidget {
       onPressed: regctrl.isIssuing.value
           ? null
           : () {
-              regctrl.issuseIdCard();
+              regctrl.issueIdCard();
+              //Get.back(result: true);
             },
       style: ElevatedButton.styleFrom(
         backgroundColor: CustomColors.buttonColor,

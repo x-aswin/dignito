@@ -38,7 +38,8 @@ dependencies:
   get: ^4.6.6
   http: ^1.2.1
   flutter_secure_storage: ^9.2.1
-  qr_code_scanner: ^1.0.1
+  #qr_code_scanner: ^1.0.1
+  mobile_scanner: ^7.1.2
   curved_navigation_bar: ^1.0.6
   flutter_native_splash: ^2.4.6
   shared_preferences: ^2.5.3

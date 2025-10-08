@@ -134,7 +134,7 @@ class EventDetails extends StatelessWidget {
           ? null
           : () {
               eventctrl.allocateNumber(participantdetails);
-              Get.back(result: true);
+              //Get.back(result: true);
             },
       style: ElevatedButton.styleFrom(
         backgroundColor: CustomColors.buttonColor,
@@ -143,7 +143,7 @@ class EventDetails extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
       ),
-      child: eventctrl.isLoading.value
+      child: eventctrl.issubmiting.value
           ? Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
@@ -183,6 +183,7 @@ SizedBox(height: constraints.maxHeight * 0.02),
                         child: ElevatedButton(
                           onPressed: () {
                             authctrl.cancelchest();
+                            Get.back(result: true);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color.fromARGB(255, 60, 60, 60),

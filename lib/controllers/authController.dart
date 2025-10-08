@@ -59,7 +59,7 @@ class AuthController extends GetxController {
   
   void cancelchest() async {
     await LocalStorage.removeValue('Candid');
-    Get.off(() => const Homepage());
+    //Get.off(() => const Homepage());
   }
 
 /* void logout() async {
