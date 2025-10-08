@@ -55,7 +55,7 @@ import 'package:dignito/main.dart';
   colorText: Colors.white,
   margin: const EdgeInsets.all(12),
   borderRadius: 8,
-  duration: const Duration(seconds: 4),
+  duration: const Duration(seconds:1),
   icon: const Icon(Icons.check_circle_outline, color: Colors.white),
 );
 }

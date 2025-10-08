@@ -42,7 +42,8 @@ class Eventcontroller extends GetxController {
 
     if (scannedCode.isNotEmpty) {
       participantid.text = scannedCode;
-
+      print("Scanned Code: $scannedCode");
+/*
       Get.snackbar(
         "Participant ID",
         scannedCode,
@@ -51,12 +52,13 @@ class Eventcontroller extends GetxController {
         colorText: Colors.white,
         margin: const EdgeInsets.all(12),
         borderRadius: 8,
-        duration: const Duration(seconds: 2),
+        duration: const Duration(microseconds: 500),
         icon: const Icon(Icons.qr_code_2, color: Colors.white),
       );
+      */
 
       // ✅ Automatically move to event details page
-      await Future.delayed(const Duration(milliseconds: 500));
+      await Future.delayed(const Duration(seconds: 1));
       eventDetailsPage();
     }
   }
@@ -97,9 +99,13 @@ class Eventcontroller extends GetxController {
       bool response = await HttpServices.issueChestNumber(partdet);
 
       if (!response) {
-        Get.snackbar('Unsuccessful', 'An error occurred', colorText: Colors.white);
+       Get.snackbar('Unsuccessful', 'An error occurred', colorText: Colors.white);
+       
       } else {
-        Get.snackbar('Successful', 'Chest number allocated successfully', colorText: Colors.white);
+        print(
+          'Chest number allocated successfully',
+        );
+       // Get.snackbar('Successful', 'Chest number allocated successfully', colorText: Colors.white);
       }
     } catch (e) {
       Get.snackbar('Error', 'Something went wrong', colorText: Colors.white);
@@ -118,7 +124,8 @@ class Eventcontroller extends GetxController {
           firstPrizeinst.text = response.instname;
           firstPrizememb.text = response.members;
         } else {
-          Get.snackbar('Error', 'Details not found', colorText: Colors.white);
+          //Get.snackbar('Error', 'Details not found', colorText: Colors.white);
+          print("details not found!");
         }
       } else {
         final chestno = secondPrizeController.text.trim();

@@ -25,8 +25,9 @@ class Regcontroller extends GetxController {
     hasScanned.value = true;
 
     candid.text = scannedCode;
-
+    print("Scanned Code: $scannedCode");
     // Show participant ID
+    /*
     Get.snackbar(
       "Participant ID",
       candid.text,
@@ -35,9 +36,10 @@ class Regcontroller extends GetxController {
       colorText: Colors.white,
       margin: const EdgeInsets.all(12),
       borderRadius: 8,
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 1),
       icon: const Icon(Icons.qr_code, color: Colors.white),
     );
+    */
 
     await getCandidateDetails();
   }

@@ -53,7 +53,7 @@ class LoginController extends GetxController {
   colorText: Colors.white,
   margin: const EdgeInsets.all(12),
   borderRadius: 8,
-  duration: const Duration(seconds: 4),
+  duration: const Duration(seconds: 1),
   icon: const Icon(Icons.info, color: Colors.white),
 );
 
@@ -116,7 +116,7 @@ class LoginController extends GetxController {
   colorText: Colors.white,
   margin: const EdgeInsets.all(12),
   borderRadius: 12,
-  duration: const Duration(seconds: 5),
+  duration: const Duration(seconds: 1),
   icon: const Icon(Icons.vpn_key, color: Colors.white),
   shouldIconPulse: true, // adds a little animation to the icon
   isDismissible: true,
