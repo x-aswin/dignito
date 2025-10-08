@@ -8,7 +8,7 @@ class FestAssets {
   // app start to initialize
   static Future<void> loadFestId() async {
     final appData = await SharedPrefHelper.getAppData();
-    festid = appData['festid'] ?? '1';
+    festid = '1';
     print("festid loaded for dynamic assets, the id is $festid");
   }
 
