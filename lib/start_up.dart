@@ -6,7 +6,8 @@ import 'package:dignito/main.dart';
   import 'package:get/get.dart';
   import 'package:dignito/services/shared_pref_service.dart';
   import 'package:dignito/views/login.dart'; 
-  import 'package:dignito/views/initial_login.dart'; 
+  import 'package:dignito/views/initial_login.dart';
+   import 'package:dignito/custom_colors.dart';
   import 'package:dignito/services/assets_manager.dart';
 
   class StartUpPage extends StatefulWidget {
@@ -34,6 +35,7 @@ import 'package:dignito/main.dart';
       
       //loading assets
       await FestAssets.loadFestId();
+        await CustomColors.updateRegTextColor();
 
       if (appKey =='') {
         print("No appKey found, navigating to LoginWithKey");
