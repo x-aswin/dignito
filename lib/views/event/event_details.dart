@@ -191,7 +191,7 @@ class _EventDetailsState extends State<EventDetails> {
                                       ],
                                     )
                                   : Text(
-                                      'Update Chest Number',
+                                      'Update / Mark as Participated',
                                       style: TextStyle(
                                         fontSize: 18,
                                         color:
