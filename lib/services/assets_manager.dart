@@ -14,13 +14,13 @@ class FestAssets {
 
   // Map of background images
   static const Map<String, String> _backgroundImages = {
-    '1': 'assets/splash_back.png',
+    '4': 'assets/splash_back.png',
     '5': 'assets/daksh_background.png',
   };
 
   // Map of logos
   static const Map<String, String> _logos = {
-    '1': 'assets/dignito_logo.png',
+    '4': 'assets/dignito_logo.png',
     '5': 'assets/daksshtext.png',
   };
 
