@@ -21,7 +21,10 @@ class EventDetails extends StatelessWidget {
 
     final String initialChestCode = participantdetails.chestcode;
     final String initialChestNumber = participantdetails.chestnumber.toString();
-    eventctrl.allocatedNumberController.text = initialChestNumber;
+    if (eventctrl.allocatedNumberController.text.isEmpty) {
+  eventctrl.allocatedNumberController.text = initialChestNumber;
+}
+
 
        // Get assets synchronously
     final String background = FestAssets.getBackground();
